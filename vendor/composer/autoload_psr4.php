@@ -47,6 +47,7 @@ return array(
     'Laminas\\ComponentInstaller\\' => array($vendorDir . '/laminas/laminas-component-installer/src'),
     'Laminas\\Code\\' => array($vendorDir . '/laminas/laminas-code/src'),
     'Laminas\\Cli\\' => array($vendorDir . '/laminas/laminas-cli/src'),
+    'Hopex\\Simplog\\' => array($vendorDir . '/hopex/simplog/src'),
     'Fig\\Http\\Message\\' => array($vendorDir . '/fig/http-message-util/src'),
     'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),

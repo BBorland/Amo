@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d56b91433c64e8b42a3ab71ac8cfb297",
+    "content-hash": "319141295196d57b7a4cef2ef24338c3",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -183,6 +183,53 @@
                 "source": "https://github.com/php-fig/http-message-util/tree/1.1.5"
             },
             "time": "2020-11-24T22:02:12+00:00"
+        },
+        {
+            "name": "hopex/simplog",
+            "version": "2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Hopex-Development/simplog.git",
+                "reference": "14796ca18c093a6d388ee46c504e7a61d74374dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Hopex-Development/simplog/zipball/14796ca18c093a6d388ee46c504e7a61d74374dd",
+                "reference": "14796ca18c093a6d388ee46c504e7a61d74374dd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hopex\\Simplog\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Schizo",
+                    "email": "hopex.schizo@gmail.com"
+                }
+            ],
+            "description": "Simple data logging with customize directories.",
+            "keywords": [
+                "log",
+                "logger",
+                "logging",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/Hopex-Development/simplog/issues",
+                "source": "https://github.com/Hopex-Development/simplog/tree/v2.3"
+            },
+            "time": "2023-01-13T09:20:46+00:00"
         },
         {
             "name": "laminas/laminas-component-installer",
@@ -5572,7 +5619,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4 || ~8.0.0 || ~8.1.0"
+        "php": "^7.4"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"

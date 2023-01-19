@@ -36,6 +36,7 @@ final class Versions
   'brick/varexporter' => '0.3.7@3e263cd718d242594c52963760fee2059fd5833c',
   'composer/package-versions-deprecated' => '1.11.99.5@b4f54f74ef3453349c24a845d22392cd31e65f1d',
   'fig/http-message-util' => '1.1.5@9d94dc0154230ac39e5bf89398b324a86f63f765',
+  'hopex/simplog' => '2.3@14796ca18c093a6d388ee46c504e7a61d74374dd',
   'laminas/laminas-component-installer' => '2.8.0@3c998d2b2755985c71cd4d5d9b294228f63d3a65',
   'laminas/laminas-config-aggregator' => '1.9.0@14cd94568ac8e4a8cf005c7e81509b8599fe3b20',
   'laminas/laminas-diactoros' => '2.17.0@5b32597aa46b83c8b85bb1cf9a6ed4fe7dd980c5',
@@ -108,7 +109,7 @@ final class Versions
   'symfony/service-contracts' => 'v2.5.2@4b426aac47d6427cc1a1d0f7e2ac724627f5966c',
   'symfony/string' => 'v5.4.17@55733a8664b8853b003e70251c58bc8cb2d82a6b',
   'theseer/tokenizer' => '1.2.1@34a41e998c2183e22995f158c581e7b5e755ab9e',
-  'mezzio/mezzio-skeleton' => '1.0.0+no-version-set@',
+  'mezzio/mezzio-skeleton' => 'dev-master@8b46cfcdea8d147e0b2503ab8cf9645d6c055f84',
 );
 
     private function __construct()

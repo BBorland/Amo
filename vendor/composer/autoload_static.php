@@ -105,6 +105,10 @@ class ComposerStaticInit8828dee71c2b426395b1af72d284b6fb
             'Laminas\\Code\\' => 13,
             'Laminas\\Cli\\' => 12,
         ),
+        'H' => 
+        array (
+            'Hopex\\Simplog\\' => 14,
+        ),
         'F' => 
         array (
             'Fig\\Http\\Message\\' => 17,
@@ -293,6 +297,10 @@ class ComposerStaticInit8828dee71c2b426395b1af72d284b6fb
         'Laminas\\Cli\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-cli/src',
+        ),
+        'Hopex\\Simplog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hopex/simplog/src',
         ),
         'Fig\\Http\\Message\\' => 
         array (

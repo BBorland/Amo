@@ -335,6 +335,56 @@
             "install-path": "../filp/whoops"
         },
         {
+            "name": "hopex/simplog",
+            "version": "2.3",
+            "version_normalized": "2.3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Hopex-Development/simplog.git",
+                "reference": "14796ca18c093a6d388ee46c504e7a61d74374dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Hopex-Development/simplog/zipball/14796ca18c093a6d388ee46c504e7a61d74374dd",
+                "reference": "14796ca18c093a6d388ee46c504e7a61d74374dd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4"
+            },
+            "time": "2023-01-13T09:20:46+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Hopex\\Simplog\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Schizo",
+                    "email": "hopex.schizo@gmail.com"
+                }
+            ],
+            "description": "Simple data logging with customize directories.",
+            "keywords": [
+                "log",
+                "logger",
+                "logging",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/Hopex-Development/simplog/issues",
+                "source": "https://github.com/Hopex-Development/simplog/tree/v2.3"
+            },
+            "install-path": "../hopex/simplog"
+        },
+        {
             "name": "laminas/laminas-cli",
             "version": "1.5.0",
             "version_normalized": "1.5.0.0",

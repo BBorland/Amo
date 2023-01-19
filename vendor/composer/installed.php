@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'mezzio/mezzio-skeleton',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '8b46cfcdea8d147e0b2503ab8cf9645d6c055f84',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -60,6 +60,15 @@
             'install_path' => __DIR__ . '/../filp/whoops',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'hopex/simplog' => array(
+            'pretty_version' => '2.3',
+            'version' => '2.3.0.0',
+            'reference' => '14796ca18c093a6d388ee46c504e7a61d74374dd',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../hopex/simplog',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'laminas/laminas-cli' => array(
             'pretty_version' => '1.5.0',
@@ -215,9 +224,9 @@
             'dev_requirement' => false,
         ),
         'mezzio/mezzio-skeleton' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '8b46cfcdea8d147e0b2503ab8cf9645d6c055f84',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
