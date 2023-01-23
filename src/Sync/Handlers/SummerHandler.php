@@ -18,13 +18,14 @@ class SummerHandler implements RequestHandlerInterface
         $a = $request->getQueryParams();
         $sum = 0;
         foreach ($a as $b => $value) {
+            $a[$b] = (int)$value;
             $sum += (int)$value;
         }
 
         (new Logger())
             ->setLevel(date("Y-m-d"))
             ->setFileName('requests')
-            ->custom(array_merge($a, ['sum:' => $sum]));
+            ->custom(['data' => array_merge($a, ['sum:' => $sum])]);
         return new JsonResponse([
             $sum
             ]
