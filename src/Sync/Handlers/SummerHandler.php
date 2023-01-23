@@ -25,7 +25,7 @@ class SummerHandler implements RequestHandlerInterface
         (new Logger())
             ->setLevel(date("Y-m-d"))
             ->setFileName('requests')
-            ->custom(['data' => array_merge($a, ['sum:' => $sum])]);
+            ->custom(['data' => array_merge($a, ['sum' => $sum])]);
         return new JsonResponse([
             $sum
             ]
