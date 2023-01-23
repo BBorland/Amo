@@ -109,7 +109,7 @@ final class Versions
   'symfony/service-contracts' => 'v2.5.2@4b426aac47d6427cc1a1d0f7e2ac724627f5966c',
   'symfony/string' => 'v5.4.17@55733a8664b8853b003e70251c58bc8cb2d82a6b',
   'theseer/tokenizer' => '1.2.1@34a41e998c2183e22995f158c581e7b5e755ab9e',
-  'mezzio/mezzio-skeleton' => 'dev-master@8b46cfcdea8d147e0b2503ab8cf9645d6c055f84',
+  'mezzio/mezzio-skeleton' => 'dev-master@3b289e703de66b2b98240cf16353581ec4488b24',
 );
 
     private function __construct()

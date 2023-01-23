@@ -16,7 +16,6 @@ class SummerHandler implements RequestHandlerInterface
     {
         $a = $request->getQueryParams();
         $sum = 0;
-        $c = [];
         $log = new Logger();
         $log->setLevel('./2025-11-15');
         $log->setFileName('/requests.log');
