@@ -1,0 +1,8 @@
+.idea
+COPYRIGHT.md
+LICENSE.md
+phpcs.xml.dist
+phpunit.xml.dist
+README.md
+vendor
+logs
