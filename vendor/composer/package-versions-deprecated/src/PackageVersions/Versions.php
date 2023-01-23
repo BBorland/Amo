@@ -33,7 +33,7 @@ final class Versions
      * @internal
      */
     const VERSIONS          = array (
-  'brick/varexporter' => '0.3.7@3e263cd718d242594c52963760fee2059fd5833c',
+  'brick/varexporter' => '0.3.8@b5853edea6204ff8fa10633c3a4cccc4058410ed',
   'composer/package-versions-deprecated' => '1.11.99.5@b4f54f74ef3453349c24a845d22392cd31e65f1d',
   'fig/http-message-util' => '1.1.5@9d94dc0154230ac39e5bf89398b324a86f63f765',
   'hopex/simplog' => '2.3@14796ca18c093a6d388ee46c504e7a61d74374dd',
@@ -59,6 +59,7 @@ final class Versions
   'psr/http-message' => '1.0.1@f6561bf28d520154e4b0ec72be95418abe6d9363',
   'psr/http-server-handler' => '1.0.1@aff2f80e33b7f026ec96bb42f63242dc50ffcae7',
   'psr/http-server-middleware' => '1.0.1@2296f45510945530b9dceb8bcedb5cb84d40c5f5',
+  'squizlabs/php_codesniffer' => '3.7.1@1359e176e9307e906dc3d890bcc9603ff6d90619',
   'webimpress/safe-writer' => '2.2.0@9d37cc8bee20f7cb2f58f6e23e05097eab5072e6',
   'webmozart/assert' => '1.11.0@11cb2199493b2f8a3b53e7f19068fc6aac760991',
   'doctrine/instantiator' => '1.5.0@0a0fa9780f5d4e507415a065172d26a98d02047b',
@@ -78,7 +79,7 @@ final class Versions
   'phpunit/phpunit' => '9.5.28@954ca3113a03bf780d22f07bf055d883ee04b65e',
   'psr/event-dispatcher' => '1.0.0@dbefd12671e8a14ec7f180cab83036ed26714bb0',
   'psr/log' => '1.1.4@d49695b909c3b7628b6289db5479a1c204601f11',
-  'roave/security-advisories' => 'dev-master@8720bfa67e13ac10efbf846ffb70dbfadf816232',
+  'roave/security-advisories' => 'dev-master@3c4c1cc9bc3eed8e57f63780161896336c455de1',
   'sebastian/cli-parser' => '1.0.1@442e7c7e687e42adc03470c7b668bc4b2402c0b2',
   'sebastian/code-unit' => '1.0.8@1fc9f64c0927627ef78ba436c9b17d967e68e120',
   'sebastian/code-unit-reverse-lookup' => '2.0.3@ac91f01ccec49fb77bdc6fd1e548bc70f7faa3e5',
@@ -109,7 +110,7 @@ final class Versions
   'symfony/service-contracts' => 'v2.5.2@4b426aac47d6427cc1a1d0f7e2ac724627f5966c',
   'symfony/string' => 'v5.4.17@55733a8664b8853b003e70251c58bc8cb2d82a6b',
   'theseer/tokenizer' => '1.2.1@34a41e998c2183e22995f158c581e7b5e755ab9e',
-  'mezzio/mezzio-skeleton' => 'dev-master@8b46cfcdea8d147e0b2503ab8cf9645d6c055f84',
+  'mezzio/mezzio-skeleton' => 'dev-master@5266bc43651a5cd7b8f904caa277403d17342175',
 );
 
     private function __construct()
