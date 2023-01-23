@@ -3,7 +3,7 @@
         'name' => 'mezzio/mezzio-skeleton',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '8b46cfcdea8d147e0b2503ab8cf9645d6c055f84',
+        'reference' => '5266bc43651a5cd7b8f904caa277403d17342175',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'brick/varexporter' => array(
-            'pretty_version' => '0.3.7',
-            'version' => '0.3.7.0',
-            'reference' => '3e263cd718d242594c52963760fee2059fd5833c',
+            'pretty_version' => '0.3.8',
+            'version' => '0.3.8.0',
+            'reference' => 'b5853edea6204ff8fa10633c3a4cccc4058410ed',
             'type' => 'library',
             'install_path' => __DIR__ . '/../brick/varexporter',
             'aliases' => array(),
@@ -226,7 +226,7 @@
         'mezzio/mezzio-skeleton' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '8b46cfcdea8d147e0b2503ab8cf9645d6c055f84',
+            'reference' => '5266bc43651a5cd7b8f904caa277403d17342175',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -451,7 +451,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '8720bfa67e13ac10efbf846ffb70dbfadf816232',
+            'reference' => '3c4c1cc9bc3eed8e57f63780161896336c455de1',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(),
@@ -600,6 +600,15 @@
             'install_path' => __DIR__ . '/../sebastian/version',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'squizlabs/php_codesniffer' => array(
+            'pretty_version' => '3.7.1',
+            'version' => '3.7.1.0',
+            'reference' => '1359e176e9307e906dc3d890bcc9603ff6d90619',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../squizlabs/php_codesniffer',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'symfony/console' => array(
             'pretty_version' => 'v5.4.17',
