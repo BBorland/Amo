@@ -17,14 +17,15 @@ class SummerHandler implements RequestHandlerInterface
         $a = $request->getQueryParams();
         $sum = 0;
         $log = new Logger();
+        $answer = [];
         $log->setLevel('./2025-11-15');
         $log->setFileName('/requests.log');
         foreach ($a as $b => $value) {
             $sum += (int)$value;
-            $log->custom($b . ': '. $value);
+            $answer[$b] = $value;
         }
-        $log->custom('type: ' . gettype($a));
-        $log->custom('sum: ' . $sum);
+        $answer["sum"] = $sum;
+        $log->custom([$answer]);
         return new JsonResponse([
             $sum
             ]
