@@ -44,6 +44,10 @@
     },
     "require": {
         "php": "^7.4",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "amocrm/amocrm-api-library": "^0.13.0",
+        "amocrm/oauth2-amocrm": "^2.0",
         "composer/package-versions-deprecated": "^1.10.99",
         "hopex/simplog": "^2.3",
         "laminas/laminas-component-installer": "^2.6",
@@ -55,7 +59,8 @@
         "mezzio/mezzio-fastroute": "^3.0.3",
         "mezzio/mezzio-helpers": "^5.7",
         "mezzio/mezzio-platesrenderer": "^2.2",
-        "squizlabs/php_codesniffer": "^3.7.1"
+        "squizlabs/php_codesniffer": "^3.7.1",
+      "ext-mysql_xdevapi": "*"
     },
     "require-dev": {
         "laminas/laminas-development-mode": "^3.3.0",

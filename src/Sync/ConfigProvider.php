@@ -8,6 +8,8 @@ use Sync\Factories\TestHandlerFactory;
 use Sync\Handlers\TestHandler;
 use Sync\Factories\SummerHandlerFactory;
 use Sync\Handlers\SummerHandler;
+use Sync\Handlers\AuthHandler;
+use Sync\Factories\AuthHandlerFactory;
 
 class ConfigProvider
 {
@@ -23,10 +25,10 @@ class ConfigProvider
         return [
             'invokables' => [
             ],
-	        'factories' => [
+            'factories' => [
                 \Sync\Handlers\SummerHandler::class => \Sync\Factories\SummerHandlerFactory::class,
-	        ],
+                \Sync\Handlers\AuthHandler::class => \Sync\Factories\AuthHandlerFactory::class,
+            ],
         ];
     }
 }
- 
