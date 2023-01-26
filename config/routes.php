@@ -42,4 +42,5 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->get('/test', Sync\Handlers\TestHandler::class, 'test');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
     $app->get('/sum', Sync\Handlers\SummerHandler::class, 'sum');
+    $app->get('/auth', Sync\Handlers\AuthHandler::class, 'auth');
 };
