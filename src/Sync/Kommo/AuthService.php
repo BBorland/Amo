@@ -15,7 +15,7 @@ class AuthService
     private const TOKENS_FILE = './tokens.json';
 
     /** @var AmoCRMApiClient AmoCRM клиент. */
-    private AmoCRMApiClient $apiClient;
+    protected AmoCRMApiClient $apiClient;
 
     public function __construct()
     {
