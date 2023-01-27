@@ -34,6 +34,7 @@ class GetContactsHandler extends AuthService implements RequestHandlerInterface
         if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$name])) {
             (new AuthService())->auth();
         }
+
         $bigArrayOfContacts = (new \Sync\Kommo\GetContacts)->GetCont($name);
         $goodReturn = [];
         $emails = [];
