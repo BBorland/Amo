@@ -12,10 +12,10 @@ class AuthService
     private const TARGET_DOMAIN = 'kommo.com';
 
     /** @var string Файл хранения токенов. */
-    private const TOKENS_FILE = './tokens.json';
+    protected const TOKENS_FILE = './tokens.json';
 
     /** @var AmoCRMApiClient AmoCRM клиент. */
-    private AmoCRMApiClient $apiClient;
+    protected AmoCRMApiClient $apiClient;
 
     public function __construct()
     {
@@ -93,7 +93,6 @@ class AuthService
                 ->getOAuthClient()
                 ->setBaseDomain($_GET['referer'])
                 ->getAccessTokenByCode($_GET['code']);
-//            throw new Exception('No name index');
             if (!$accessToken->hasExpired()) {
                 $this->saveToken([
                     'access_token' => $accessToken->getToken(),

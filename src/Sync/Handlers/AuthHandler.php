@@ -14,17 +14,15 @@ class AuthHandler implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $a = $request->getQueryParams()['name'];
-        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$a])) {
+        $name = $request->getQueryParams()['name'];
+        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$name])) {
             (new AuthService())->auth();
-//            return new JsonResponse([
-//                ['name' => $_SESSION['name']]
-//            ]);
+            return new JsonResponse([
+                ['name' => $_SESSION['name']]
+            ]);
         }
-        $access_token = json_decode(file_get_contents('./tokens.json'), true)[$a]['access_token'];
         return new JsonResponse([
-//            ['name' => $a]
-            json_decode(file_get_contents('./tokens.json'), true)[$a]['access_token']
+            ['name' => $name]
         ]);
     }
 }
