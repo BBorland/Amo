@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace Sync\Handlers;
 
+use AmoCRM\Client\AmoCRMApiClient;
+use Exception;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Sync\Kommo\AuthService;
 
-class AuthHandler implements RequestHandlerInterface
+class AuthHandler extends AuthService implements RequestHandlerInterface
 {
+    /**
+     * @throws Exception
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $name = $request->getQueryParams()['name'];
