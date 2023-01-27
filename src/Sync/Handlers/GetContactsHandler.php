@@ -31,6 +31,10 @@ class GetContactsHandler extends AuthService implements RequestHandlerInterface
         if (!isset($name)) {
             exit('No name!');
         }
+        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$name])) {
+            (new AuthService())->auth();
+        }
+
         $bigArrayOfContacts = (new \Sync\Kommo\GetContacts)->GetCont($name);
         $goodReturn = [];
         $emails = [];
@@ -38,7 +42,6 @@ class GetContactsHandler extends AuthService implements RequestHandlerInterface
             if (isset($value['custom_fields_values'])) {
                 foreach ($value['custom_fields_values'] as $key3 => $field3) {
                     if ($field3['field_code'] == 'EMAIL') {
-                        $ifEmail = true;
                         foreach ($field3['values'] as $key4 => $field4) {
                             $emails[] = $field4['value'];
                         }
