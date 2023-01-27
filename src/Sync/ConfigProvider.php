@@ -28,6 +28,7 @@ class ConfigProvider
             'factories' => [
                 \Sync\Handlers\SummerHandler::class => \Sync\Factories\SummerHandlerFactory::class,
                 \Sync\Handlers\AuthHandler::class => \Sync\Factories\AuthHandlerFactory::class,
+                \Sync\Handlers\GetContactsHandler::class => \Sync\Factories\GetContactsHandlerFactory::class,
             ],
         ];
     }
