@@ -21,9 +21,8 @@ class GetContactsHandler extends AuthService implements RequestHandlerInterface
 
 
     /**
-     * @throws AmoCRMoAuthApiException
-     * @throws AmoCRMApiException
-     * @throws AmoCRMMissedTokenException
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
