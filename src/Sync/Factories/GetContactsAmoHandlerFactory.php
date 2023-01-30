@@ -4,12 +4,12 @@ namespace Sync\Factories;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Sync\Handlers\GetContactsHandler;
+use Sync\Handlers\GetContactsAmoHandler;
 
-class GetContactsHandlerFactory
+class GetContactsAmoHandlerFactory
 {
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
-        return new GetContactsHandler();
+        return new GetContactsAmoHandler();
     }
 }

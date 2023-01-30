@@ -11,7 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Sync\Kommo\AuthService;
 
-class GetContactsHandler extends AuthService implements RequestHandlerInterface
+class GetContactsAmoHandler extends AuthService implements RequestHandlerInterface
 {
 
     public function filterArray($value): bool
@@ -21,9 +21,8 @@ class GetContactsHandler extends AuthService implements RequestHandlerInterface
 
 
     /**
-     * @throws AmoCRMoAuthApiException
-     * @throws AmoCRMApiException
-     * @throws AmoCRMMissedTokenException
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -35,7 +34,7 @@ class GetContactsHandler extends AuthService implements RequestHandlerInterface
             (new AuthService())->auth();
         }
 
-        $bigArrayOfContacts = (new \Sync\Kommo\GetContacts)->GetCont($name);
+        $bigArrayOfContacts = (new \Sync\Kommo\GetContactsAmo)->GetCont($name);
         $goodReturn = [];
         $emails = [];
         foreach ($bigArrayOfContacts as $key => $value) {
