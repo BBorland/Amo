@@ -50,6 +50,7 @@
         "amocrm/oauth2-amocrm": "^2.0",
         "composer/package-versions-deprecated": "^1.10.99",
         "hopex/simplog": "^2.3",
+        "illuminate/events": "^8.83",
         "laminas/laminas-component-installer": "^2.6",
         "laminas/laminas-config-aggregator": "^1.6",
         "laminas/laminas-diactoros": "^2.7",
@@ -60,7 +61,7 @@
         "mezzio/mezzio-helpers": "^5.7",
         "mezzio/mezzio-platesrenderer": "^2.2",
         "squizlabs/php_codesniffer": "^3.7.1",
-      "ext-mysql_xdevapi": "*"
+        "unisender/api-wrapper": "^1.6"
     },
     "require-dev": {
         "laminas/laminas-development-mode": "^3.3.0",

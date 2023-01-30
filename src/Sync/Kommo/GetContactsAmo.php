@@ -7,7 +7,7 @@ use AmoCRM\Exceptions\AmoCRMMissedTokenException;
 use AmoCRM\Exceptions\AmoCRMoAuthApiException;
 use mysql_xdevapi\Exception;
 
-class GetContacts extends AuthService
+class GetContactsAmo extends AuthService
 {
     public function __construct()
     {
