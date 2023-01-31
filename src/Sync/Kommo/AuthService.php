@@ -20,8 +20,8 @@ class AuthService
     public function __construct()
     {
         $this->apiClient = new AmoCRMApiClient(
-            $integrationId = '31f0d3ef-e526-4d3d-baac-b0bf0035b387',
-            $integrationSecretKey = 'tl00rJhabI17AaXfdoGaDsA5Xjk2QcJJZIiHoIQMLdLsJ4WsEbedF38L7lfi07I5',
+            $integrationId = 'a818ccec-cd88-4155-b2fb-26dea09c9e3b',
+            $integrationSecretKey = 't9lPyVi8AYKFQtMg4pVPruIvHUPWwt8MO9Qm5f7WH421QhJvtqY2fpNS7x5RC9eI',
             $integrationRedirectUri = 'https://491c-173-233-147-68.eu.ngrok.io/auth',
         );
     }

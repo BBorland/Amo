@@ -44,4 +44,6 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->get('/sum', Sync\Handlers\SummerHandler::class, 'sum');
     $app->get('/auth', Sync\Handlers\AuthHandler::class, 'auth');
     $app->get('/email', Sync\Handlers\GetContactsUniHandler::class, 'email');
+    $app->get('/contacts', Sync\Handlers\GetContactsAmoHandler::class, 'contacts');
+    $app->get('/sync', Sync\Handlers\ImportAmoToUniHandler::class, 'sync');
 };
