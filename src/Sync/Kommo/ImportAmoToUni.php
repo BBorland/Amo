@@ -25,7 +25,7 @@ class ImportAmoToUni
      * @param array $array
      * @return string
      */
-    public function ImportAmoToUni($array): string
+    public function ImportAmoToUni(array $array): string
     {
         return $this->uni->importContacts(['field_names' => ['email', 'Name'], 'data' => $array]);
     }
