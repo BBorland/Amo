@@ -30,6 +30,7 @@ class ConfigProvider
                 \Sync\Handlers\AuthHandler::class => \Sync\Factories\AuthHandlerFactory::class,
                 \Sync\Handlers\GetContactsAmoHandler::class => \Sync\Factories\GetContactsAmoHandlerFactory::class,
                 \Sync\Handlers\GetContactsUniHandler::class => \Sync\Factories\GetContactsUniHandlerFactory::class,
+                \Sync\Handlers\ImportAmoToUniHandler::class => \Sync\Factories\ImportAmoToUniHandlerFactory::class,
             ],
         ];
     }

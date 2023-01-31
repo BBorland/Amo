@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sync\Handlers;
 
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Sync\Kommo\AuthService;
+use Sync\Kommo\ImportAmoToUni;
 
-class GetContactsAmoHandler extends AuthService implements RequestHandlerInterface
+class ImportAmoToUniHandler extends ImportAmoToUni implements RequestHandlerInterface
 {
-
     /**
      * @param ServerRequestInterface $request
      * @return ResponseInterface
@@ -18,17 +19,11 @@ class GetContactsAmoHandler extends AuthService implements RequestHandlerInterfa
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $name = $request->getQueryParams()['name'];
-        if (!isset($name)) {
-            exit('No name!');
-        }
-        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$name])) {
-            (new AuthService())->auth();
-        }
         $getContactsAmo = (new \Sync\Kommo\GetContactsAmo);
         $bigArrayOfContacts = $getContactsAmo->GetCont($name);
         $goodReturn = $getContactsAmo->makeArray($bigArrayOfContacts);
         return new JsonResponse(
-            $goodReturn
+            (new ImportAmoToUni())->ImportAmoToUni($goodReturn)
         );
     }
 }

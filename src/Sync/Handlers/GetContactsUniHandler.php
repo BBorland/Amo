@@ -11,11 +11,15 @@ use Psr\Http\Server\RequestHandlerInterface;
 class GetContactsUniHandler extends GetContactsUni implements RequestHandlerInterface
 {
 
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $a = $request->getQueryParams()['email'];
+        $email = $request->getQueryParams()['email'];
         return new JsonResponse(
-            (new GetContactsUni)->getContactsUni($a)
+            (new GetContactsUni)->getContactsUni($email)
         );
     }
 }
