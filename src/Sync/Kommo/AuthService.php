@@ -22,7 +22,7 @@ class AuthService
         $this->apiClient = new AmoCRMApiClient(
             $integrationId = 'a818ccec-cd88-4155-b2fb-26dea09c9e3b',
             $integrationSecretKey = 't9lPyVi8AYKFQtMg4pVPruIvHUPWwt8MO9Qm5f7WH421QhJvtqY2fpNS7x5RC9eI',
-            $integrationRedirectUri = 'https://491c-173-233-147-68.eu.ngrok.io/auth',
+            $integrationRedirectUri = 'https://fa2a-173-233-147-68.eu.ngrok.io/auth',
         );
     }
 
