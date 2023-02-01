@@ -19,6 +19,9 @@ class ImportAmoToUniHandler extends ImportAmoToUni implements RequestHandlerInte
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $name = $request->getQueryParams()['name'];
+        if (!isset($name)) {
+            exit('Нету имени');
+        }
         $getContactsAmo = (new \Sync\Kommo\GetContactsAmo);
         $bigArrayOfContacts = $getContactsAmo->GetCont($name);
         $goodReturn = $getContactsAmo->makeArray($bigArrayOfContacts);

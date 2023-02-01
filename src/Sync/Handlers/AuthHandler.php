@@ -20,6 +20,9 @@ class AuthHandler extends AuthService implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $a = $request->getQueryParams()['name'];
+        if (!isset($a)) {
+            exit('Нету имени');
+        }
         if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$a])) {
             (new AuthService())->auth();
             return new JsonResponse([
