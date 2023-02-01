@@ -21,9 +21,6 @@ class GetContactsAmoHandler extends AuthService implements RequestHandlerInterfa
         if (!isset($name)) {
             exit('No name!');
         }
-        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$name])) {
-            (new AuthService())->auth();
-        }
         $getContactsAmo = (new \Sync\Kommo\GetContactsAmo);
         $bigArrayOfContacts = $getContactsAmo->GetCont($name);
         $goodReturn = $getContactsAmo->makeArray($bigArrayOfContacts);
