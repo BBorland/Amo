@@ -10,3 +10,4 @@ composer.lock
 hello-world
 tokens.json
 .env
+phpmig.php

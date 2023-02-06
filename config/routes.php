@@ -46,4 +46,5 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->get('/email', Sync\Handlers\GetContactsUniHandler::class, 'email');
     $app->get('/contacts', Sync\Handlers\GetContactsAmoHandler::class, 'contacts');
     $app->get('/sync', Sync\Handlers\ImportAmoToUniHandler::class, 'sync');
+    $app->get('/db', Sync\Handlers\ImportAmoToDbHandler::class, 'db');
 };
