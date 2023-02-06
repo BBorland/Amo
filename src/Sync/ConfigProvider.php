@@ -31,6 +31,7 @@ class ConfigProvider
                 \Sync\Handlers\GetContactsAmoHandler::class => \Sync\Factories\GetContactsAmoHandlerFactory::class,
                 \Sync\Handlers\GetContactsUniHandler::class => \Sync\Factories\GetContactsUniHandlerFactory::class,
                 \Sync\Handlers\ImportAmoToUniHandler::class => \Sync\Factories\ImportAmoToUniHandlerFactory::class,
+                \Sync\Handlers\ImportAmoToDbHandler::class => \Sync\Factories\ImportAmoToDbHandlerFactory::class,
             ],
         ];
     }
