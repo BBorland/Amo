@@ -33,6 +33,7 @@ class ConfigProvider
                 \Sync\Handlers\ImportAmoToUniHandler::class => \Sync\Factories\ImportAmoToUniHandlerFactory::class,
                 \Sync\Handlers\ImportAmoToDbHandler::class => \Sync\Factories\ImportAmoToDbHandlerFactory::class,
                 \Sync\Handlers\GetUniTokenHandler::class => \Sync\Factories\GetUniTokenHandlerFactory::class,
+                \Sync\Handlers\WebHookHandler::class => \Sync\Factories\WebHookHandlerFactory::class,
             ],
         ];
     }
