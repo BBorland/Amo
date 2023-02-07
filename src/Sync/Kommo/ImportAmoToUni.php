@@ -11,7 +11,7 @@ class ImportAmoToUni
      */
     private UnisenderApi $uni;
 
-    public function __construct() // TODO: PHPDocs
+    public function __construct()
     {
         $this->uni = new UnisenderApi($this->$_ENV['unisender_key']);
     }
