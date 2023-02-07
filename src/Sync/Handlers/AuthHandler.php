@@ -21,6 +21,7 @@ class AuthHandler extends AuthService implements RequestHandlerInterface
 
     public function __construct(array $connection)
     {
+        parent::__construct();
         $this->connection = $connection;
     }
 
@@ -30,11 +31,11 @@ class AuthHandler extends AuthService implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $a = $request->getQueryParams()['name'];
-        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$a]) or
+        if (//!isset(json_decode(file_get_contents('./tokens.json'), true)[$a]) //or
             !(Account::where('account_name', $a)->exists())) {
-            (new AuthService())->auth();
+            $name = (new AuthService())->auth();
             return new JsonResponse([
-                ['name' => $_SESSION['name']]
+                ['name' => $name]
             ]);
         }
         return new JsonResponse([

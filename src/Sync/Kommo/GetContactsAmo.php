@@ -11,11 +11,6 @@ use Sync\Models\Account;
 
 class GetContactsAmo extends AuthService
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * @param string $name
      * @return array
@@ -27,18 +22,22 @@ class GetContactsAmo extends AuthService
             $contactsArray = $this->apiClient->contacts()->get()->toArray();
         } catch (AmoCRMApiNoContentException $e) {
             echo 'у пользователя нет контактов';
-        } catch (AmoCRMApiException | AmoCRMMissedTokenException | AmoCRMoAuthApiException $e) {
+        } catch (AmoCRMApiException $e) {
             (new AuthService())->auth();
         }
         return $contactsArray;
     }
 
+    /**
+     * @param string $name
+     * @return string
+     */
     public function getId(string $name): string
     {
         $token = $this->checkAuthToken($name);
         try {
             $accountArray = $this->apiClient->account()->getCurrent()->toArray();
-        } catch (AmoCRMApiException | AmoCRMMissedTokenException | AmoCRMoAuthApiException $e) {
+        } catch (AmoCRMApiException $e) {
             echo 'Error:' . $e->getMessage();
         }
         return $accountArray['id'];
@@ -67,10 +66,14 @@ class GetContactsAmo extends AuthService
         return $goodReturn;
     }
 
+    /**
+     * @param $name
+     * @return AccessToken
+     */
     public function checkAuthToken($name): AccessToken
     {
-        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$name]) or
-            !(Account::where('account_name', $name)->exists())
+        if (//!isset(json_decode(file_get_contents('./tokens.json'), true)[$name]) or
+        !(Account::where('account_name', $name)->exists())
         ) {
             (new AuthService())->auth();
         }

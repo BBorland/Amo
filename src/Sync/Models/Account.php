@@ -9,11 +9,10 @@ class Account extends Model
     /**
      * @var string[]
      */
- //   protected $fillable = ['account_name', 'unisender_key', 'token', 'enum_code'];
+       protected $fillable = ['account_name', 'unisender_key', 'token', 'account_id'];
     /**
      * @var string
      */
     protected $table = 'accounts';
 
-    protected $guarded = [];
 }
