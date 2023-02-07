@@ -15,7 +15,7 @@ class AuthService extends BaseController
     private const TARGET_DOMAIN = 'kommo.com';
 
     /** @var string Файл хранения токенов. */
-    private const TOKENS_FILE = './tokens.json';
+    private const TOKENS_FILE = './tokens.json'; // TODO: уже не нужна эта константа, работаем с базой
 
     /** @var AmoCRMApiClient AmoCRM клиент. */
     protected AmoCRMApiClient $apiClient;
@@ -23,7 +23,7 @@ class AuthService extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->apiClient = new AmoCRMApiClient(
+        $this->apiClient = new AmoCRMApiClient( //TODO: эти данные нужно вынести в файл конфигураций
             $integrationId = 'b01aea71-d988-499a-83d1-7ce7059a51ad',
             $integrationSecretKey = 'ngP8ZecdxiSKTFpa6yerT2G5iWCt4egmCfKe3slTQcjB9acmZpLkUpb4bTNPALxh',
             $integrationRedirectUri = 'https://cc37-212-46-197-210.eu.ngrok.io/auth',
@@ -123,13 +123,13 @@ class AuthService extends BaseController
         $tokens = (Account::where('account_name', $_SESSION['name'])->exists())
             ? (new AccountController())->accountGetToken($_SESSION['name'])
             : [];
-        $tokens = file_exists(self::TOKENS_FILE)
+        $tokens = file_exists(self::TOKENS_FILE) // TODO: снова файлы, их не должно быть, только база
             ? json_decode(file_get_contents(self::TOKENS_FILE), true)
             : [];
         $tokens[$_SESSION['name']] = $token;
-        Account::updateOrCreate(['account_name' => $_SESSION['name']],
+        Account::updateOrCreate(['account_name' => $_SESSION['name']], // TODO: PSR
             ['token' => json_encode($token, JSON_PRETTY_PRINT)]);
-        file_put_contents(self::TOKENS_FILE, json_encode($tokens, JSON_PRETTY_PRINT));
+        file_put_contents(self::TOKENS_FILE, json_encode($tokens, JSON_PRETTY_PRINT)); // TODO: файлы
     }
 
     /**
@@ -140,7 +140,7 @@ class AuthService extends BaseController
      */
     public function readToken(string $accountName): AccessToken
     {
-        return new AccessToken(
+        return new AccessToken( // TODO: тоже файлы, нужна только база
             json_decode(file_get_contents(self::TOKENS_FILE), true)[$accountName]
         );
     }

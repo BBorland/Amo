@@ -11,7 +11,7 @@ use Sync\Models\Account;
 
 class GetContactsAmo extends AuthService
 {
-    public function __construct()
+    public function __construct() // TODO: для чего, если нет переопределения входных параметров?
     {
         parent::__construct();
     }
@@ -33,12 +33,12 @@ class GetContactsAmo extends AuthService
         return $contactsArray;
     }
 
-    public function getId(string $name): string
+    public function getId(string $name): string // TODO: PHPDocs
     {
         $token = $this->checkAuthToken($name);
         try {
             $accountArray = $this->apiClient->account()->getCurrent()->toArray();
-        } catch (AmoCRMApiException | AmoCRMMissedTokenException | AmoCRMoAuthApiException $e) {
+        } catch (AmoCRMApiException | AmoCRMMissedTokenException | AmoCRMoAuthApiException $e) {  // TODO: DRY
             echo 'Error:' . $e->getMessage();
         }
         return $accountArray['id'];
@@ -67,9 +67,9 @@ class GetContactsAmo extends AuthService
         return $goodReturn;
     }
 
-    public function checkAuthToken($name): AccessToken
+    public function checkAuthToken($name): AccessToken // TODO: PHPDocs
     {
-        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$name]) or
+        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$name]) or // TODO: опять файлы?
             !(Account::where('account_name', $name)->exists())
         ) {
             (new AuthService())->auth();
