@@ -38,7 +38,7 @@ use Psr\Container\ContainerInterface;
  */
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
-    $app->get('/', App\Handler\HomePageHandler::class, 'home');
+    //$app->post('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/test', Sync\Handlers\TestHandler::class, 'test');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
     $app->get('/sum', Sync\Handlers\SummerHandler::class, 'sum');
@@ -47,4 +47,5 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->get('/contacts', Sync\Handlers\GetContactsAmoHandler::class, 'contacts');
     $app->get('/sync', Sync\Handlers\ImportAmoToUniHandler::class, 'sync');
     $app->get('/db', Sync\Handlers\ImportAmoToDbHandler::class, 'db');
+    $app->post('/', Sync\Handlers\GetUniTokenHandler::class, 'uni');
 };

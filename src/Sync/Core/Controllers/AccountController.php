@@ -10,7 +10,7 @@ class AccountController extends BaseController
     public function accountCreate(array $data): void
     {
             Account::updateOrCreate(['account_name' => $data['account_name']],
-                    ['enum_code' => $data['enum_code'],
+                    ['account_id' => $data['account_id'],
                         'token' => $data['token'],
                     'unisender_key' => $data['unisender_key']
                     ]);
@@ -21,5 +21,13 @@ class AccountController extends BaseController
         return new AccessToken(
             json_decode(Account::where('account_name', $accountName)->first()->token, true)
         );
+    }
+
+    public function uniTokenInsert(array $data): void
+    {
+        Account::updateOrCreate(['account_name' => $data['Uname']],
+            [
+                'unisender_key' => $data['token']
+            ]);
     }
 }
