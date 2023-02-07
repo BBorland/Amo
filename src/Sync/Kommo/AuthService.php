@@ -5,8 +5,11 @@ namespace Sync\Kommo;
 use AmoCRM\Client\AmoCRMApiClient;
 use Exception;
 use League\OAuth2\Client\Token\AccessToken;
+use Sync\Core\Controllers\AccountController;
+use Sync\Core\Controllers\BaseController;
+use Sync\Models\Account;
 
-class AuthService
+class AuthService extends BaseController
 {
     /** @var string Базовый домен авторизации. */
     private const TARGET_DOMAIN = 'kommo.com';
@@ -19,6 +22,7 @@ class AuthService
 
     public function __construct()
     {
+        parent::__construct();
         $this->apiClient = new AmoCRMApiClient(
             $integrationId = 'b01aea71-d988-499a-83d1-7ce7059a51ad',
             $integrationSecretKey = 'ngP8ZecdxiSKTFpa6yerT2G5iWCt4egmCfKe3slTQcjB9acmZpLkUpb4bTNPALxh',
@@ -93,7 +97,6 @@ class AuthService
                 ->getOAuthClient()
                 ->setBaseDomain($_GET['referer'])
                 ->getAccessTokenByCode($_GET['code']);
-//            throw new Exception('No name index');
             if (!$accessToken->hasExpired()) {
                 $this->saveToken([
                     'access_token' => $accessToken->getToken(),
@@ -117,10 +120,15 @@ class AuthService
      */
     private function saveToken(array $token): void
     {
+        $tokens = (Account::where('account_name', $_SESSION['name'])->exists())
+            ? (new AccountController())->accountGetToken($_SESSION['name'])
+            : [];
         $tokens = file_exists(self::TOKENS_FILE)
             ? json_decode(file_get_contents(self::TOKENS_FILE), true)
             : [];
         $tokens[$_SESSION['name']] = $token;
+        Account::updateOrCreate(['account_name' => $_SESSION['name']],
+            ['token' => json_encode($token, JSON_PRETTY_PRINT)]);
         file_put_contents(self::TOKENS_FILE, json_encode($tokens, JSON_PRETTY_PRINT));
     }
 

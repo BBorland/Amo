@@ -2,7 +2,6 @@
 
 use Phpmig\Migration\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class SetAccounts extends Migration
@@ -14,8 +13,10 @@ class SetAccounts extends Migration
     {
         Capsule::schema()->create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('Name');
-            $table->string('emails');
+            $table->string('account_name');
+            $table->string('unisender_key')->nullable();
+            $table->json('token');
+            $table->string('enum_code')->nullable();
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ class GetContactsUniHandler extends GetContactsUni implements RequestHandlerInte
     {
         $email = $request->getQueryParams()['email'];
         return new JsonResponse(
-            (new GetContactsUni)->getContactsUni($email)
+            (new GetContactsUni())->getContactsUni($email)
         );
     }
 }

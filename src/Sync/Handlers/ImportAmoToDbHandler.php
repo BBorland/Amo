@@ -8,6 +8,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Sync\Core\Controllers\AccountController;
 
+use function PHPUnit\Framework\isJson;
+
 class ImportAmoToDbHandler implements RequestHandlerInterface
 {
 
@@ -17,12 +19,15 @@ class ImportAmoToDbHandler implements RequestHandlerInterface
         if (!isset($name)) {
             exit('No name!');
         }
-        $getContactsAmo = (new \Sync\Kommo\GetContactsAmo());
-        $bigArrayOfContacts = $getContactsAmo->GetCont($name);
-        $goodReturn = $getContactsAmo->makeArray($bigArrayOfContacts);
-        (new AccountController())->accountCreate($goodReturn);
+        $accountId = (new \Sync\Kommo\GetContactsAmo())->GetId($name);
+        $token = (new \Sync\Kommo\GetContactsAmo())->checkAuthToken($name);
+        (new AccountController())->accountCreate(['account_name' => $name,
+            'enum_code' => $accountId,
+            'token' => json_encode($token, JSON_PRETTY_PRINT),
+            'unisender_key' => $_ENV['unisender_key'],
+        ]);
         return new JsonResponse(
-            $goodReturn
+            (new AccountController())->accountGetToken($name)
         );
     }
 }

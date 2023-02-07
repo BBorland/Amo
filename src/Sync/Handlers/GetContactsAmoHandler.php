@@ -21,11 +21,11 @@ class GetContactsAmoHandler extends AuthService implements RequestHandlerInterfa
         if (!isset($name)) {
             exit('No name!');
         }
-        $getContactsAmo = (new \Sync\Kommo\GetContactsAmo);
+        $getContactsAmo = (new \Sync\Kommo\GetContactsAmo());
         $bigArrayOfContacts = $getContactsAmo->GetCont($name);
         $goodReturn = $getContactsAmo->makeArray($bigArrayOfContacts);
         return new JsonResponse(
-            $goodReturn
+            $bigArrayOfContacts
         );
     }
 }
