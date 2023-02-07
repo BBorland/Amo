@@ -13,9 +13,9 @@ class TestHandler implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-	  return new JsonResponse([
-		'status' => 'ok'
-	    ]
+        return new JsonResponse([
+                'status' => 'ok'
+            ]
         );
     }
 }

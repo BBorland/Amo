@@ -27,7 +27,7 @@ class SummerHandler implements RequestHandlerInterface
             ->setFileName('requests')
             ->custom(['data' => array_merge($a, ['sum' => $sum])]);
         return new JsonResponse([
-            $sum
+                $sum
             ]
         );
     }

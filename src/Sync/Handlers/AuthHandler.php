@@ -21,6 +21,7 @@ class AuthHandler extends AuthService implements RequestHandlerInterface
 
     public function __construct(array $connection) //TODO: PHPDocs
     {
+        parent::__construct();
         $this->connection = $connection;
     }
 
@@ -30,16 +31,11 @@ class AuthHandler extends AuthService implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $a = $request->getQueryParams()['name'];
-        // TODO: файлы больше не должны использоваться
-        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$a]) or
+        if (//!isset(json_decode(file_get_contents('./tokens.json'), true)[$a]) //or
             !(Account::where('account_name', $a)->exists())) {
-            (new AuthService())->auth();
+            $name = (new AuthService())->auth();
             return new JsonResponse([
-                /*
-                 * TODO: 'name' => (new AuthService())->auth()
-                 * см. 112 строку в AuthService
-                 */
-                ['name' => $_SESSION['name']]
+                ['name' => $name]
             ]);
         }
         return new JsonResponse([
