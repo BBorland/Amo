@@ -19,7 +19,7 @@ class AuthHandler extends AuthService implements RequestHandlerInterface
     /** @var array  */
     private array $connection;
 
-    public function __construct(array $connection)
+    public function __construct(array $connection) //TODO: PHPDocs
     {
         parent::__construct();
         $this->connection = $connection;

@@ -13,6 +13,6 @@ class Account extends Model
     /**
      * @var string
      */
-    protected $table = 'accounts';
+    protected $table = 'accounts'; // TODO: можно не указывать, если таблица одноименна модели, но во множественном числе
 
 }
