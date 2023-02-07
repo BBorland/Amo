@@ -12,6 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Sync\Core\Controllers\AccountController;
 use Sync\Kommo\AuthService;
+use Sync\Models\Account;
 
 class AuthHandler extends AuthService implements RequestHandlerInterface
 {
@@ -28,9 +29,9 @@ class AuthHandler extends AuthService implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        (new AccountController($this->connection))->accountCreate([]);
         $a = $request->getQueryParams()['name'];
-        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$a])) {
+        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$a]) or
+            !(Account::where('account_name', $a)->exists())) {
             (new AuthService())->auth();
             return new JsonResponse([
                 ['name' => $_SESSION['name']]

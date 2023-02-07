@@ -22,7 +22,7 @@ class ImportAmoToUniHandler extends ImportAmoToUni implements RequestHandlerInte
         if (!isset($name)) {
             exit('Нету имени');
         }
-        $getContactsAmo = (new \Sync\Kommo\GetContactsAmo);
+        $getContactsAmo = (new \Sync\Kommo\GetContactsAmo());
         $bigArrayOfContacts = $getContactsAmo->GetCont($name);
         $goodReturn = $getContactsAmo->makeArray($bigArrayOfContacts);
         return new JsonResponse(

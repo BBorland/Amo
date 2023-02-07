@@ -2,12 +2,12 @@
 
 namespace Sync\Kommo;
 
-use AmoCRM\Client\AmoCRMApiClient;
 use AmoCRM\Exceptions\AmoCRMApiException;
 use AmoCRM\Exceptions\AmoCRMApiNoContentException;
 use AmoCRM\Exceptions\AmoCRMMissedTokenException;
 use AmoCRM\Exceptions\AmoCRMoAuthApiException;
-use mysql_xdevapi\Exception;
+use League\OAuth2\Client\Token\AccessToken;
+use Sync\Models\Account;
 
 class GetContactsAmo extends AuthService
 {
@@ -22,12 +22,7 @@ class GetContactsAmo extends AuthService
      */
     public function getCont(string $name): array
     {
-        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$name])) {
-            (new AuthService())->auth();
-        }
-        $accessToken = $this->readToken($name);
-        $this->apiClient->setAccessToken($accessToken)
-            ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
+        $token = $this->checkAuthToken($name);
         try {
             $contactsArray = $this->apiClient->contacts()->get()->toArray();
         } catch (AmoCRMApiNoContentException $e) {
@@ -36,6 +31,17 @@ class GetContactsAmo extends AuthService
             (new AuthService())->auth();
         }
         return $contactsArray;
+    }
+
+    public function getId(string $name): string
+    {
+        $token = $this->checkAuthToken($name);
+        try {
+            $accountArray = $this->apiClient->account()->getCurrent()->toArray();
+        } catch (AmoCRMApiException | AmoCRMMissedTokenException | AmoCRMoAuthApiException $e) {
+            echo 'Error:' . $e->getMessage();
+        }
+        return $accountArray['id'];
     }
 
     /**
@@ -59,5 +65,18 @@ class GetContactsAmo extends AuthService
             }
         }
         return $goodReturn;
+    }
+
+    public function checkAuthToken($name): AccessToken
+    {
+        if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$name]) or
+            !(Account::where('account_name', $name)->exists())
+        ) {
+            (new AuthService())->auth();
+        }
+        $accessToken = $this->readToken($name);
+        $this->apiClient->setAccessToken($accessToken)
+            ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
+        return $accessToken;
     }
 }
