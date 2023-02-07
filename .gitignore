@@ -11,3 +11,4 @@ hello-world
 tokens.json
 .env
 phpmig.php
+composer.phar
