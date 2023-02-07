@@ -15,8 +15,8 @@ class SetAccounts extends Migration
             $table->id();
             $table->string('account_name');
             $table->string('unisender_key')->nullable();
-            $table->json('token');
-            $table->string('enum_code')->nullable();
+            $table->json('token')->nullable();
+            $table->string('account_id')->nullable();
             $table->timestamps();
         });
     }

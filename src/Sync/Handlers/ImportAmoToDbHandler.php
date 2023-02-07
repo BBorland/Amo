@@ -22,9 +22,8 @@ class ImportAmoToDbHandler implements RequestHandlerInterface
         $accountId = (new \Sync\Kommo\GetContactsAmo())->GetId($name);
         $token = (new \Sync\Kommo\GetContactsAmo())->checkAuthToken($name);
         (new AccountController())->accountCreate(['account_name' => $name,
-            'enum_code' => $accountId,
+            'account_id' => $accountId,
             'token' => json_encode($token, JSON_PRETTY_PRINT),
-            'unisender_key' => $_ENV['unisender_key'],
         ]);
         return new JsonResponse(
             (new AccountController())->accountGetToken($name)
