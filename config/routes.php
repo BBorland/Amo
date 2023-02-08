@@ -48,4 +48,5 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->get('/sync', Sync\Handlers\ImportAmoToUniHandler::class, 'sync');
     $app->get('/db', Sync\Handlers\ImportAmoToDbHandler::class, 'db');
     $app->post('/', Sync\Handlers\GetUniTokenHandler::class, 'uni');
+    $app->post('/webhook', Sync\Handlers\WebHookHandler::class, 'webhook');
 };

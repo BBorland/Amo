@@ -13,6 +13,10 @@ use function PHPUnit\Framework\isJson;
 class ImportAmoToDbHandler implements RequestHandlerInterface
 {
 
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $name = $request->getQueryParams()['name'];

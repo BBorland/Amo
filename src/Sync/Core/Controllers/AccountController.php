@@ -23,10 +23,10 @@ class AccountController extends BaseController
     }
 
     /**
-     * @param $accountName
+     * @param string $accountName
      * @return AccessToken
      */
-    public function accountGetToken($accountName): AccessToken
+    public function accountGetToken(string $accountName): AccessToken
     {
         $token = json_decode(Account::where('account_name', $accountName)->first()->token, true);
         return new AccessToken(
