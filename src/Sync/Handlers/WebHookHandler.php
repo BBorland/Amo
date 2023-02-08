@@ -28,7 +28,11 @@ class WebHookHandler implements RequestHandlerInterface
                         }
                     }
                 }
-                (new ImportAmoToUni())->ImportAmoToUni($arrayToSend);
+                if (isset($arrayToSend)) {
+                    (new ImportAmoToUni())->ImportAmoToUni($arrayToSend);
+                } else {
+                    exit();
+                }
             }
         }
         if (isset($data['contacts']['add'])) {
@@ -42,7 +46,11 @@ class WebHookHandler implements RequestHandlerInterface
                         }
                     }
                 }
-                (new ImportAmoToUni())->ImportAmoToUni($arrayToSend);
+                if (isset($arrayToSend)) {
+                    (new ImportAmoToUni())->ImportAmoToUni($arrayToSend);
+                } else {
+                    exit();
+                }
             }
         }
         return new JsonResponse(
