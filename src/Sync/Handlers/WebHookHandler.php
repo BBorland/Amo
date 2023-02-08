@@ -17,9 +17,9 @@ class WebHookHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $data = $request->getParsedBody();
-        if (isset($data['contacts']['update'])) {
+        if (isset($data['contacts']['update'])) { // TODO: проще и лучше использовать switch-case
             foreach ($data['contacts']['update'] as $update) {
-                $name = $update['name'];
+                $name = $update['name']; // TODO: DRY
                 foreach ($update['custom_fields'] as $custom_field) {
                     if ($custom_field['code'] == 'EMAIL') {
                         foreach ($custom_field['values'] as $value) {
@@ -29,7 +29,7 @@ class WebHookHandler implements RequestHandlerInterface
                     }
                 }
                 if (isset($arrayToSend)) {
-                    (new ImportAmoToUni())->ImportAmoToUni($arrayToSend);
+                    (new ImportAmoToUni())->ImportAmoToUni($arrayToSend); // TODO: старые почты из унисендера не удаляться
                 } else {
                     exit();
                 }
@@ -37,7 +37,7 @@ class WebHookHandler implements RequestHandlerInterface
         }
         if (isset($data['contacts']['add'])) {
             foreach ($data['contacts']['add'] as $add) {
-                $name = $add['name'];
+                $name = $add['name']; // TODO: DRY
                 foreach ($add['custom_fields'] as $custom_field) {
                     if ($custom_field['code'] == 'EMAIL') {
                         foreach ($custom_field['values'] as $value) {
@@ -46,7 +46,7 @@ class WebHookHandler implements RequestHandlerInterface
                         }
                     }
                 }
-                if (isset($arrayToSend)) {
+                if (isset($arrayToSend)) { // TODO: DRY + заменить isset на empty(...), иначе else никогда не выполнится
                     (new ImportAmoToUni())->ImportAmoToUni($arrayToSend);
                 } else {
                     exit();

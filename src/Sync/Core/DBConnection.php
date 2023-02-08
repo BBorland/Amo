@@ -21,7 +21,7 @@ class DBConnection
     /**
      * @return Capsule
      */
-    public function getCapsule(): Capsule
+    public function getCapsule(): Capsule// TODO: PHPDocs
     {
         return $this->capsule;
     }
