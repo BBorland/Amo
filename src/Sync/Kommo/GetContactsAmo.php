@@ -56,7 +56,7 @@ class GetContactsAmo extends AuthService
                     if ($field3['field_code'] == 'EMAIL') {
                         foreach ($field3['values'] as $key4 => $field4) {
                             if ($field4['enum_code'] == 'WORK') {
-                                $goodReturn[] = ['emails' => $field4['value'], 'Name' => $value['name']];
+                                $goodReturn[] = [$field4['value'], $value['name']];
                             }
                         }
                     }
@@ -65,6 +65,7 @@ class GetContactsAmo extends AuthService
         }
         return $goodReturn;
     }
+
 
     /**
      * @param $name

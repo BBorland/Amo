@@ -11,11 +11,12 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Sync\Kommo\AddWebHook;
 use Sync\Kommo\AuthService;
+use Sync\Kommo\GetContactsAmo;
 use Sync\Models\Account;
 
 class AuthHandler extends AuthService implements RequestHandlerInterface
 {
-    /** @var array  */
+    /** @var array */
     private array $connection;
 
     /**
@@ -34,13 +35,20 @@ class AuthHandler extends AuthService implements RequestHandlerInterface
     {
         $a = $request->getQueryParams()['name'];
         if (//!isset(json_decode(file_get_contents('./tokens.json'), true)[$a]) //or
-            !(Account::where('account_name', $a)->exists())) {
+        !(Account::where('account_name', $a)->exists())) {
             $name = (new AuthService())->auth();
+            $accessToken = $this->readToken($name);
+            $this->apiClient->setAccessToken($accessToken)
+                ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
             (new AddWebHook())->AddWebHook($this->apiClient);
             return new JsonResponse([
                 ['name' => $name]
             ]);
         }
+        $accessToken = $this->readToken($a);
+        $this->apiClient->setAccessToken($accessToken)
+            ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
+        (new AddWebHook())->AddWebHook($this->apiClient);
         return new JsonResponse([
             ['name' => $a]
         ]);

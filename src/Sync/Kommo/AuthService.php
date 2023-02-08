@@ -20,6 +20,9 @@ class AuthService extends BaseController
     /** @var AmoCRMApiClient AmoCRM клиент. */
     protected AmoCRMApiClient $apiClient;
 
+    /**
+     *
+     */
     public function __construct()
     {
         parent::__construct();
