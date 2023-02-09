@@ -3,6 +3,8 @@
 namespace Sync\Core;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use InvalidArgumentException;
+use PDOException;
 
 class DBConnection
 {
@@ -20,6 +22,8 @@ class DBConnection
 
     /**
      * @return Capsule
+     * @throws PDOException
+     * @throws InvalidArgumentException
      */
     public function getCapsule(): Capsule// TODO: PHPDocs
     {

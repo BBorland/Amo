@@ -11,6 +11,9 @@ class ImportAmoToUni
      */
     private UnisenderApi $uni;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->uni = new UnisenderApi($_ENV['unisender_key']);
@@ -22,6 +25,6 @@ class ImportAmoToUni
      */
     public function ImportAmoToUni(array $array): string
     {
-        return $this->uni->importContacts(['field_names' => ['email', 'Name'], 'data' => $array]);
+        return $this->uni->importContacts(['field_names' => ['email', 'Name', 'delete'], 'data' => $array]);
     }
 } // TODO: PSR

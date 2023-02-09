@@ -25,7 +25,7 @@ class GetContactsAmoHandler extends AuthService implements RequestHandlerInterfa
         $bigArrayOfContacts = $getContactsAmo->GetCont($name);
         $goodReturn = $getContactsAmo->makeArray($bigArrayOfContacts);
         return new JsonResponse(
-            $bigArrayOfContacts
+            $goodReturn
         );
     }
 }

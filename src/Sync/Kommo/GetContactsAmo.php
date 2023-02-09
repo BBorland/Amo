@@ -30,9 +30,9 @@ class GetContactsAmo extends AuthService
 
     /**
      * @param string $name
-     * @return string
+     * @return array
      */
-    public function getId(string $name): string
+    public function getId(string $name): array
     {
         $token = $this->checkAuthToken($name);
         try {
@@ -40,7 +40,7 @@ class GetContactsAmo extends AuthService
         } catch (AmoCRMApiException $e) {
             echo 'Error:' . $e->getMessage();
         }
-        return $accountArray['id'];
+        return $accountArray;
     }
 
     /**
