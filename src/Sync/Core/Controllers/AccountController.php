@@ -14,7 +14,7 @@ class AccountController extends BaseController
      * @return void
      * @throws QueryException
      */
-    public function accountCreate(array $data): void
+    public function accountCreate(array $data): void // TODO: PHPDocs
     {
         Account::updateOrCreate([
             'account_name' => $data['account_name']
@@ -29,7 +29,7 @@ class AccountController extends BaseController
      * @param string $accountName
      * @return AccessToken
      */
-    public function accountGetToken(string $accountName): AccessToken
+    public function accountGetToken(string $accountName): AccessToken // TODO: PHPDocs
     {
         $token = json_decode(Account::where('account_name', $accountName)->first()->token, true);
         return new AccessToken(
@@ -43,7 +43,7 @@ class AccountController extends BaseController
      * @return void
      * @throws QueryException
      */
-    public function uniTokenInsert(array $data): void
+    public function uniTokenInsert(array $data): void // TODO: PHPDocs
     {
         Account::updateOrCreate([
             'account_name' => $data['Uname']

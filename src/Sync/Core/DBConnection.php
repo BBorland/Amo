@@ -25,7 +25,7 @@ class DBConnection
      * @throws PDOException
      * @throws InvalidArgumentException
      */
-    public function getCapsule(): Capsule
+    public function getCapsule(): Capsule// TODO: PHPDocs
     {
         return $this->capsule;
     }
