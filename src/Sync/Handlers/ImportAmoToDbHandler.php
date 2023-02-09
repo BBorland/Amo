@@ -23,7 +23,7 @@ class ImportAmoToDbHandler implements RequestHandlerInterface
         if (!isset($name)) {
             exit('No name!');
         }
-        $accountId = (new \Sync\Kommo\GetContactsAmo())->GetId($name);
+        $accountId = (new \Sync\Kommo\GetContactsAmo())->GetId($name)['id'];
         $token = (new \Sync\Kommo\GetContactsAmo())->checkAuthToken($name);
         (new AccountController())->accountCreate([
             'account_name' => $name,

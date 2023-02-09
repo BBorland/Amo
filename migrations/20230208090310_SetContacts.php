@@ -3,21 +3,19 @@
 use Phpmig\Migration\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
-
-class SetAccounts extends Migration
+class SetContacts extends Migration
 {
     /**
      * Do the migration
      */
     public function up()
     {
-        Capsule::schema()->create('accounts', function (Blueprint $table) {
+        Capsule::schema()->create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('account_name');
-            $table->string('unisender_key')->nullable();
-            $table->json('token')->nullable();
-            $table->string('enum')->nullable();
+            $table->string('contact_name');
+            $table->string('email')->nullable();
             $table->string('account_id')->nullable();
+            $table->string('contact_id');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ class SetAccounts extends Migration
      */
     public function down()
     {
-        Capsule::schema()->dropIfExists('accounts');
+        Capsule::schema()->dropIfExists('contacts');
     }
 }

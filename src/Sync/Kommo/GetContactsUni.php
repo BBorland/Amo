@@ -11,6 +11,9 @@ class GetContactsUni
      */
     private UnisenderApi $uni;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->uni = new UnisenderApi($_ENV['unisender_key']);

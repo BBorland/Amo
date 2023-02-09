@@ -34,6 +34,7 @@ class ConfigProvider
                 \Sync\Handlers\ImportAmoToDbHandler::class => \Sync\Factories\ImportAmoToDbHandlerFactory::class,
                 \Sync\Handlers\GetUniTokenHandler::class => \Sync\Factories\GetUniTokenHandlerFactory::class,
                 \Sync\Handlers\WebHookHandler::class => \Sync\Factories\WebHookHandlerFactory::class,
+                \Sync\Handlers\ContactsToDbHandler::class => \Sync\Factories\ContactsToDbHandlerFactory::class,
             ],
         ];
     }

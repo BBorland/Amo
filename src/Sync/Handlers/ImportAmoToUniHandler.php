@@ -26,8 +26,7 @@ class ImportAmoToUniHandler extends ImportAmoToUni implements RequestHandlerInte
         $bigArrayOfContacts = $getContactsAmo->GetCont($name);
         $goodReturn = $getContactsAmo->makeArray($bigArrayOfContacts);
         return new JsonResponse(
-            $goodReturn
-        //(new ImportAmoToUni())->ImportAmoToUni($goodReturn)
+            (new ImportAmoToUni())->ImportAmoToUni($goodReturn)
         );
     }
 }
