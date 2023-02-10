@@ -24,6 +24,7 @@ return [
     'laminas-cli' => [
         'commands' => [
             'how-time' => Sync\Command\TimeCommand::class,
+            'async-worker' => Sync\Workers\TimeWorker::class,
         ],
     ],
 ];

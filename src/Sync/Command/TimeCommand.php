@@ -36,7 +36,6 @@ class TimeCommand extends \Symfony\Component\Console\Command\Command
         $job = Pheanstalk::create('127.0.0.1')
             ->useTube('times')
             ->put(json_encode($currentTime));
-        (new TimeWorker())->execute();
         return 0;
     }
 }
