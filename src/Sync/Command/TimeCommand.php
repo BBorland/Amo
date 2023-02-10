@@ -2,8 +2,12 @@
 
 namespace Sync\Command;
 
+require '/home/osboxes/Desktop/project/mezzio/vendor/autoload.php';
+
+use Pheanstalk\Pheanstalk;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
+use Sync\Workers\TimeWorker;
 
 class TimeCommand extends \Symfony\Component\Console\Command\Command
 {
@@ -27,8 +31,12 @@ class TimeCommand extends \Symfony\Component\Console\Command\Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $currentTime = date("H:i (m.Y)");
-        $output->writeln("Now time: " . $currentTime);
+        date_default_timezone_set('Europe/Moscow');
+        $currentTime = "Now time: " . date("H:i (m.Y)");
+        $job = Pheanstalk::create('127.0.0.1')
+            ->useTube('times')
+            ->put(json_encode($currentTime));
+        (new TimeWorker())->execute();
         return 0;
     }
 }
