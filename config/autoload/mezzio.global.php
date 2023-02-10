@@ -21,4 +21,9 @@ return [
             'template_error' => 'error::error',
         ],
     ],
+    'laminas-cli' => [
+        'commands' => [
+            'how-time' => Sync\Command\TimeCommand::class,
+        ],
+    ],
 ];
