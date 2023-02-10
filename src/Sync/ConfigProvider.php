@@ -35,6 +35,7 @@ class ConfigProvider
                 \Sync\Handlers\GetUniTokenHandler::class => \Sync\Factories\GetUniTokenHandlerFactory::class,
                 \Sync\Handlers\WebHookHandler::class => \Sync\Factories\WebHookHandlerFactory::class,
                 \Sync\Handlers\ContactsToDbHandler::class => \Sync\Factories\ContactsToDbHandlerFactory::class,
+                \Sync\Workers\TimeWorker::class => \Sync\Factories\TimeWorkerFactory::class,
             ],
         ];
     }
