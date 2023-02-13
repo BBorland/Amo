@@ -1,6 +1,6 @@
 <?php
 
-namespace Sync\config; //TODO: с маленькой буквы?
+namespace Sync\config;
 
 use Pheanstalk\Pheanstalk;
 use Psr\Container\ContainerExceptionInterface;
@@ -16,7 +16,7 @@ class BeanstalkConfig
     /**
      *
      */
-    public function __construct() // TODO: см. образец конструктора
+    public function __construct()
     {
         try {
             $config = (include './config/autoload/beanstalk.php')['beanstalk'];
