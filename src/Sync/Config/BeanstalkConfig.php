@@ -1,9 +1,10 @@
 <?php
 
-namespace Sync\config;
+namespace Sync\Config;
 
 use Pheanstalk\Pheanstalk;
 use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
 class BeanstalkConfig
@@ -13,17 +14,19 @@ class BeanstalkConfig
      */
     private ?Pheanstalk $connection;
 
+    private array $config;
+
     /**
      *
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
         try {
-            $config = (include './config/autoload/beanstalk.php')['beanstalk'];
+            $this->config = $container->get('config')['beanstalk'];
             $this->connection = Pheanstalk::create(
-                $config['host'],
-                $config['port'],
-                $config['timeout'],
+                $this->config['host'],
+                $this->config['port'],
+                $this->config['timeout'],
             );
         } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
             exit($e->getMessage());
