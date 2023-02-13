@@ -12,3 +12,4 @@ tokens.json
 .env
 phpmig.php
 composer.phar
+test.txt
