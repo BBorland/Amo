@@ -8,6 +8,10 @@ use Sync\Handlers\WebHookHandler;
 
 class WebHookHandlerFactory
 {
+    /**
+     * @param ContainerInterface $container
+     * @return RequestHandlerInterface
+     */
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
         return new WebHookHandler();

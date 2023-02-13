@@ -14,6 +14,9 @@ class BeanstalkConfig
      */
     private ?Pheanstalk $connection;
 
+    /**
+     * @var array|mixed
+     */
     private array $config;
 
     /**

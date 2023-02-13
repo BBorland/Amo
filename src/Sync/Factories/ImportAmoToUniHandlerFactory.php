@@ -10,6 +10,10 @@ use Sync\Handlers\ImportAmoToUniHandler;
 
 class ImportAmoToUniHandlerFactory
 {
+    /**
+     * @param ContainerInterface $container
+     * @return RequestHandlerInterface
+     */
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
         return new ImportAmoToUniHandler();

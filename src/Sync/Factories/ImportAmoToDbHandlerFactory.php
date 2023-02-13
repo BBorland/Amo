@@ -8,6 +8,10 @@ use Sync\Handlers\ImportAmoToDbHandler;
 
 class ImportAmoToDbHandlerFactory
 {
+    /**
+     * @param ContainerInterface $container
+     * @return RequestHandlerInterface
+     */
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
         return new ImportAmoToDbHandler();

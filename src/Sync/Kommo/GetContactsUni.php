@@ -31,4 +31,4 @@ class GetContactsUni
             return $this->uni->getContact(["email" => $email, "format" => "json"]);
         }
     }
-} // TODO: PSR
+}

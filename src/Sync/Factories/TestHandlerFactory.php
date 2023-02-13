@@ -10,9 +10,12 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class TestHandlerFactory
 {
+    /**
+     * @param ContainerInterface $container
+     * @return RequestHandlerInterface
+     */
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
         return new TestHandler();
     }
 }
-

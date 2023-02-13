@@ -8,6 +8,10 @@ use Sync\Handlers\GetContactsUniHandler;
 
 class GetContactsUniHandlerFactory
 {
+    /**
+     * @param ContainerInterface $container
+     * @return RequestHandlerInterface
+     */
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
         return new GetContactsUniHandler();

@@ -19,7 +19,7 @@ class GetUniTokenHandler implements RequestHandlerInterface
     {
         (new AccountController())->uniTokenInsert($request->getParsedBody());
         return new JsonResponse(
-            var_dump($request->getParsedBody())
+            $request->getParsedBody()
         );
     }
 }

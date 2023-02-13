@@ -12,6 +12,10 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class SummerHandler implements RequestHandlerInterface
 {
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         date_default_timezone_set('Europe/Moscow');

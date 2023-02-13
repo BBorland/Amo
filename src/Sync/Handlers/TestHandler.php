@@ -11,6 +11,10 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class TestHandler implements RequestHandlerInterface
 {
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return new JsonResponse([

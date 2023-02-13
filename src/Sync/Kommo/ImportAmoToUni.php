@@ -27,4 +27,4 @@ class ImportAmoToUni
     {
         return $this->uni->importContacts(['field_names' => ['email', 'Name', 'delete'], 'data' => $array]);
     }
-} // TODO: PSR
+}

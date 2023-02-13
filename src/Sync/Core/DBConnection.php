@@ -11,6 +11,9 @@ class DBConnection
     /** @var Capsule */
     private Capsule $capsule;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $config = (include './config/autoload/orm_config.global.php')['database'];
@@ -25,7 +28,7 @@ class DBConnection
      * @throws PDOException
      * @throws InvalidArgumentException
      */
-    public function getCapsule(): Capsule// TODO: PHPDocs
+    public function getCapsule(): Capsule
     {
         return $this->capsule;
     }

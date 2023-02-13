@@ -10,6 +10,10 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class SummerHandlerFactory
 {
+    /**
+     * @param ContainerInterface $container
+     * @return RequestHandlerInterface
+     */
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
         return new SummerHandler();
