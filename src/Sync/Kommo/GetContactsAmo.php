@@ -17,7 +17,7 @@ class GetContactsAmo extends AuthService
      * @param string $name
      * @return array
      */
-    public function getCont(string $name): array
+    public function getCont(string $name): array // TODO: нигде не используется
     {
         $token = $this->checkAuthToken($name);
         try {
@@ -34,7 +34,7 @@ class GetContactsAmo extends AuthService
      * @param string $name
      * @return array
      */
-    public function getId(string $name): array
+    public function getId(string $name): array // TODO: PHPDocs
     {
         $token = $this->checkAuthToken($name);
         try {
@@ -42,14 +42,14 @@ class GetContactsAmo extends AuthService
         } catch (AmoCRMApiException $e) {
             echo 'Error:' . $e->getMessage();
         }
-        return $accountArray;
+        return $accountArray; // TODO: не объявлена
     }
 
     /**
      * @param array $array
      * @return array
      */
-    public function makeArray(array $array): array
+    public function makeArray(array $array): array // TODO: PHPDocs
     {
         $goodReturn = [];
         foreach ($array as $key => $value) {
@@ -73,7 +73,7 @@ class GetContactsAmo extends AuthService
      * @param $name
      * @return AccessToken
      */
-    public function checkAuthToken($name): AccessToken
+    public function checkAuthToken($name): AccessToken // TODO: PHPDocs
     {
         if (//!isset(json_decode(file_get_contents('./tokens.json'), true)[$name]) or
         !(Account::where('account_name', $name)->exists())

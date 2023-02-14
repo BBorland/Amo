@@ -31,6 +31,7 @@ class TimeCommand extends \Symfony\Component\Console\Command\Command
     {
         date_default_timezone_set('Europe/Moscow');
         $currentTime = "Now time: " . date("H:i (m.Y)");
+        // TODO: должна использоваться модель конфигурации
         $job = Pheanstalk::create('127.0.0.1')
             ->useTube('times')
             ->put(json_encode($currentTime));

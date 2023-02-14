@@ -12,7 +12,7 @@ class ArraySortToUni extends AuthService
      * @param array $array
      * @return array
      */
-    public function arraySortToUni(int $i, array $array, int $id, string $enum): array
+    public function arraySortToUni(int $i, array $array, int $id, string $enum): array // TODO: PHPDocs
     {
         $name = $array['name'];
         $arrayToSend = [];

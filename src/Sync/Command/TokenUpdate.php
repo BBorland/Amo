@@ -71,7 +71,7 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
         $flagForFirstAccount = true;
         $arrayAllAccounts = (new AccountController())->getAllAccounts();
         $timeToUpdate = $input->getOption('time');
-        if (preg_match('/^[\d]+$/', $timeToUpdate) != 0) {
+        if (preg_match('/^[\d]+$/', $timeToUpdate) != 0) { // TODO: используй '/^\d+$/'
             $timeToUpdate = (int)$timeToUpdate;
         } else {
             exit('Ошибка ввода' . PHP_EOL);
@@ -107,6 +107,7 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
                 'expires' => $accessToken->getExpires(),
                 'base_domain' => $this->apiClient->getAccountBaseDomain(),
             ];
+            // TODO: должна использоваться модель конфигурации
             $job = Pheanstalk::create('application-beanstalkd', 11300)
                 ->useTube('refresh')
                 ->put(json_encode([$account['account_name'], 'token' => json_encode($array)]), JSON_PRETTY_PRINT);
