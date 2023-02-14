@@ -20,10 +20,19 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
      */
     protected static $defaultName = 'token-update';
 
+    /**
+     * @var AmoCRMApiClient
+     */
     protected AmoCRMApiClient $apiClient;
 
+    /**
+     * @var AccessToken
+     */
     protected AccessToken $accessToken;
 
+    /**
+     *
+     */
     public function __construct()
     {
         parent::__construct();
@@ -61,10 +70,11 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
     {
         $arrayAllAccounts = (new AccountController())->getAllAccounts();
         $timeToUpdate = $input->getOption('time');
-        if (preg_match('/^[\d]+$/',$timeToUpdate) != 0)
-            $timeToUpdate = (int) $timeToUpdate;
-        else
+        if (preg_match('/^[\d]+$/', $timeToUpdate) != 0) {
+            $timeToUpdate = (int)$timeToUpdate;
+        } else {
             exit('Ошибка ввода' . PHP_EOL);
+        }
         foreach ($arrayAllAccounts as $account) {
             $token = (new AccountController())->accountGetToken($account['account_name']);
             $expires = Carbon::createFromTimestamp((json_decode($account['token'], true))['expires']);
@@ -81,11 +91,10 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
                     'expires' => $accessToken->getExpires(),
                     'base_domain' => $this->apiClient->getAccountBaseDomain(),
                 ];
-                $job = Pheanstalk::create('127.0.0.1')
+                $job = Pheanstalk::create('application-beanstalkd', 11300)
                     ->useTube('refresh')
                     ->put(json_encode([$account['account_name'], 'token' => json_encode($array)]), JSON_PRETTY_PRINT);
             }
-            exit();
         }
         return 0;
     }

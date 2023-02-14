@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Sync\Core\Controllers\AccountController;
 use Sync\Kommo\AuthService;
+use Sync\Kommo\GetContactsAmo;
 use Sync\Models\Account;
 use Throwable;
 
@@ -38,6 +39,6 @@ class RefreshToken extends AbstractWorker
     {
         $array = json_decode($data, true);
         (new AccountController())->accountUpdate($array[0], $array['token']);
-        echo 'успех' . PHP_EOL;
+        echo 'успех ' . $array[0] . PHP_EOL;
     }
 }

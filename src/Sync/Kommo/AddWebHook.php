@@ -2,6 +2,8 @@
 
 namespace Sync\Kommo;
 
+use AmoCRM\Exceptions\AmoCRMApiException;
+use AmoCRM\OAuth2\Client\Provider\AmoCRMException;
 use Laminas\Diactoros\Response\JsonResponse;
 
 class AddWebHook
@@ -12,18 +14,20 @@ class AddWebHook
      */
     public function AddWebHook($apiClient): JsonResponse
     {
-        $webHookModel = (new \AmoCRM\Models\WebhookModel())
-            ->setSettings([
-                'add_contact',
-                'update_contact',
-            ])
-            ->setDestination($_ENV['webhookRedirectionUri']);
-
-        $response = $apiClient
-            ->webhooks()
-            ->subscribe($webHookModel)
-            ->toArray();
-
+            $webHookModel = (new \AmoCRM\Models\WebhookModel())
+                ->setSettings([
+                    'add_contact',
+                    'update_contact',
+                ])
+                ->setDestination($_ENV['webhookRedirectionUri']);
+        try {
+            $response = $apiClient
+                ->webhooks()
+                ->subscribe($webHookModel)
+                ->toArray();
+        } catch (AmoCRMException $e) {
+            exit($e->getMessage());
+        }
         return new JsonResponse($response);
     }
 }

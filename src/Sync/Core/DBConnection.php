@@ -16,8 +16,8 @@ class DBConnection
      */
     public function __construct()
     {
-        //$config = (include './config/autoload/orm_config.global.php')['database'];
-        $config = (include './config/autoload/database.global.php')['database']['migrations'];
+        $config = (include './config/autoload/orm_config.global.php')['database'];
+        //$config = (include './config/autoload/database.global.php')['database']['migrations'];
         $this->capsule = new Capsule();
         $this->capsule->addConnection($config);
         $this->capsule->setAsGlobal();

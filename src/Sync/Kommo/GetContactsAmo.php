@@ -7,6 +7,7 @@ use AmoCRM\Exceptions\AmoCRMApiNoContentException;
 use AmoCRM\Exceptions\AmoCRMMissedTokenException;
 use AmoCRM\Exceptions\AmoCRMoAuthApiException;
 use League\OAuth2\Client\Token\AccessToken;
+use Sync\Core\Controllers\AccountController;
 use Sync\Models\Account;
 
 class GetContactsAmo extends AuthService

@@ -81,7 +81,7 @@ class AccountController extends BaseController
 
     public function accountUpdate(string $name, string $token):void
     {
-        Account::query()->update([
+        Account::query()->where('account_name', $name)->update([
             'account_name' => $name,
             'token' => $token
         ]);
