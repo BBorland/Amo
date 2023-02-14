@@ -14,6 +14,7 @@ use Sync\Models\Contact;
 class WebHookHandler implements RequestHandlerInterface
 {
     /**
+     * Обработка запросов с webhook
      * @param ServerRequestInterface $request
      * @return ResponseInterface
      */

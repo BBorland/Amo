@@ -38,7 +38,6 @@ class AuthService extends BaseController
 
     /**
      * Авторизация.
-     *
      * @return string
      */
     public function auth(): string
@@ -133,8 +132,10 @@ class AuthService extends BaseController
         //    ? json_decode(file_get_contents(self::TOKENS_FILE), true)
         //    : [];
         //$tokens[$_SESSION['name']] = $token;
-        Account::updateOrCreate(['account_name' => $_SESSION['name']], // TODO: PSR
-            ['token' => json_encode($token, JSON_PRETTY_PRINT)]);
+        Account::updateOrCreate([
+            'account_name' => $_SESSION['name']],
+            ['token' => json_encode($token, JSON_PRETTY_PRINT)
+            ]);
         //file_put_contents(self::TOKENS_FILE, json_encode($tokens, JSON_PRETTY_PRINT));
     }
 

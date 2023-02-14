@@ -12,6 +12,7 @@ class ImportAmoToDbHandler implements RequestHandlerInterface
 {
 
     /**
+     * Импортирует данные из Amo в uni
      * @param ServerRequestInterface $request
      * @return ResponseInterface
      */

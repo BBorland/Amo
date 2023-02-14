@@ -12,6 +12,7 @@ class GetContactsUniHandler extends GetContactsUni implements RequestHandlerInte
 {
 
     /**
+     * Получение данных из Unis
      * @param ServerRequestInterface $request
      * @return ResponseInterface
      */

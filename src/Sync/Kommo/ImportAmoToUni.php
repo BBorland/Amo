@@ -20,6 +20,7 @@ class ImportAmoToUni
     }
 
     /**
+     * Отправляет контакты в Unisender
      * @param array $array
      * @return string
      */

@@ -25,6 +25,7 @@ class ContactController extends BaseController
     }
 
     /**
+     * Получаем мыло по айди
      * @param int $id
      * @return string
      */
@@ -34,6 +35,7 @@ class ContactController extends BaseController
     }
 
     /**
+     * Получаем имя по айди
      * @param int $id
      * @return string
      */
@@ -43,6 +45,7 @@ class ContactController extends BaseController
     }
 
     /**
+     * Проверяем существование контактаы
      * @param int $id
      * @return bool
      */

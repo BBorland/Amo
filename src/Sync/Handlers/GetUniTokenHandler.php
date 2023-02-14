@@ -12,6 +12,7 @@ class GetUniTokenHandler implements RequestHandlerInterface
 {
 
     /**
+     * Получает токен Uni
      * @param ServerRequestInterface $request
      * @return ResponseInterface
      */

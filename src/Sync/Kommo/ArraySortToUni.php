@@ -8,11 +8,14 @@ use Sync\Models\Contact;
 class ArraySortToUni extends AuthService
 {
     /**
+     * Сортировка массива для Unisender
      * @param int $i
      * @param array $array
+     * @param int $id
+     * @param string $enum
      * @return array
      */
-    public function arraySortToUni(int $i, array $array, int $id, string $enum): array // TODO: PHPDocs
+    public function arraySortToUni(int $i, array $array, int $id, string $enum): array
     {
         $name = $array['name'];
         $arrayToSend = [];

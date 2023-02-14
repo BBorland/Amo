@@ -33,6 +33,7 @@ class RefreshToken extends AbstractWorker
     protected string $queue = 'refresh';
 
     /**
+     * Отправляет запрос на обновление токенов
      * @param $data
      */
     public function process($data): void

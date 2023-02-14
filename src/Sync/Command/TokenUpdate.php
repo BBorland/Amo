@@ -68,6 +68,7 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
     }
 
     /**
+     * Отправляет сообщение в очередь
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int

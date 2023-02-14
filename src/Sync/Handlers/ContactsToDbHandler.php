@@ -8,10 +8,13 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Sync\Core\Controllers\AccountController;
 use Sync\Core\Controllers\ContactController;
+use Sync\Kommo\GetContactsAmo;
 
 class ContactsToDbHandler implements RequestHandlerInterface
 {
     /**
+     * Отправляет данные из amo в бд
+     *
      * @param ServerRequestInterface $request
      * @return ResponseInterface
      */
@@ -21,7 +24,7 @@ class ContactsToDbHandler implements RequestHandlerInterface
         if (!isset($name)) {
             exit('No name!');
         }
-        $bigArrayOfContacts = (new \Sync\Kommo\GetContactsAmo())->GetCont($name);
+        $bigArrayOfContacts = (new GetContactsAmo())->GetCont($name);
         foreach ($bigArrayOfContacts as $contact) {
             $contactName = $contact['name'];
             $contactId = $contact['id'];

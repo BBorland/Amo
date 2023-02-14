@@ -21,7 +21,6 @@ class GetContactsUni
 
     /**
      * Getting contact from Unisender
-     *
      * @param string $email
      * @return string
      */

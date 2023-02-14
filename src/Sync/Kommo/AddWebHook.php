@@ -8,6 +8,7 @@ use Laminas\Diactoros\Response\JsonResponse;
 class AddWebHook
 {
     /**
+     * Подключает Webhook
      * @param $apiClient
      * @return JsonResponse
      */

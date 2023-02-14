@@ -27,6 +27,7 @@ class AccountController extends BaseController
     }
 
     /**
+     * Возвращает токен аккаунта по имени
      * @param string $accountName
      * @return AccessToken
      */
@@ -58,6 +59,7 @@ class AccountController extends BaseController
     }
 
     /**
+     * Вставляет enum
      * @param array $data
      * @return void
      */
@@ -71,6 +73,7 @@ class AccountController extends BaseController
     }
 
     /**
+     * Возвращает enum
      * @param string $accountId
      * @return string
      */
@@ -80,6 +83,7 @@ class AccountController extends BaseController
     }
 
     /**
+     * Возвращает все записи из таблицы
      * @return array
      */
     public function getAllAccounts(): array
@@ -88,6 +92,7 @@ class AccountController extends BaseController
     }
 
     /**
+     * Обновляет все токены
      * @param string $token
      * @return void
      */
@@ -101,10 +106,11 @@ class AccountController extends BaseController
     }
 
     /**
+     * Получаем один конкретный аккаунт
      * @param string $name
      * @return array
      */
-    public function getOneAccount(string $name):array
+    public function getOneAccount(string $name): array
     {
         return Account::query()->where('account_name', $name)->first()->toArray();
     }

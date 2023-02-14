@@ -4,22 +4,22 @@ namespace Sync\Kommo;
 
 use AmoCRM\Exceptions\AmoCRMApiException;
 use AmoCRM\Exceptions\AmoCRMApiNoContentException;
-use AmoCRM\Exceptions\AmoCRMMissedTokenException;
-use AmoCRM\Exceptions\AmoCRMoAuthApiException;
 use AmoCRM\OAuth2\Client\Provider\AmoCRMException;
 use League\OAuth2\Client\Token\AccessToken;
-use Sync\Core\Controllers\AccountController;
 use Sync\Models\Account;
 
 class GetContactsAmo extends AuthService
 {
     /**
+     * Получет контакты аккаунта
+     *
      * @param string $name
      * @return array
      */
-    public function getCont(string $name): array // TODO: нигде не используется
+    public function getCont(string $name): array
     {
         $token = $this->checkAuthToken($name);
+        $contactsArray = [];
         try {
             $contactsArray = $this->apiClient->contacts()->get()->toArray();
         } catch (AmoCRMApiNoContentException $e) {
@@ -31,25 +31,30 @@ class GetContactsAmo extends AuthService
     }
 
     /**
+     * Получение данных об аккаунте
+     *
      * @param string $name
      * @return array
      */
-    public function getId(string $name): array // TODO: PHPDocs
+    public function getId(string $name): array
     {
         $token = $this->checkAuthToken($name);
+        $accountArray = [];
         try {
             $accountArray = $this->apiClient->account()->getCurrent()->toArray();
         } catch (AmoCRMApiException $e) {
             echo 'Error:' . $e->getMessage();
         }
-        return $accountArray; // TODO: не объявлена
+        return $accountArray;
     }
 
     /**
+     * Сортирует массив для Unisender
+     *
      * @param array $array
      * @return array
      */
-    public function makeArray(array $array): array // TODO: PHPDocs
+    public function makeArray(array $array): array
     {
         $goodReturn = [];
         foreach ($array as $key => $value) {
@@ -68,12 +73,13 @@ class GetContactsAmo extends AuthService
         return $goodReturn;
     }
 
-
     /**
-     * @param $name
+     * Проверяет токен
+     *
+     * @param string $name
      * @return AccessToken
      */
-    public function checkAuthToken($name): AccessToken // TODO: PHPDocs
+    public function checkAuthToken(string $name): AccessToken
     {
         if (//!isset(json_decode(file_get_contents('./tokens.json'), true)[$name]) or
         !(Account::where('account_name', $name)->exists())

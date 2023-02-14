@@ -13,6 +13,7 @@ use Sync\Kommo\ImportAmoToUni;
 class ImportAmoToUniHandler extends ImportAmoToUni implements RequestHandlerInterface
 {
     /**
+     * Принимает запрос для импорта из Amo в Uni
      * @param ServerRequestInterface $request
      * @return ResponseInterface
      */

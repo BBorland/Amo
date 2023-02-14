@@ -29,6 +29,7 @@ class TimeWorker extends AbstractWorker
     protected string $queue = 'times';
 
     /**
+     * Выводит время
      * @param $data
      * @return void
      */

@@ -7,11 +7,13 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Sync\Kommo\AuthService;
+use Sync\Kommo\GetContactsAmo;
 
 class GetContactsAmoHandler extends AuthService implements RequestHandlerInterface
 {
 
     /**
+     * Получение контактов из amo
      * @param ServerRequestInterface $request
      * @return ResponseInterface
      */
@@ -21,8 +23,8 @@ class GetContactsAmoHandler extends AuthService implements RequestHandlerInterfa
         if (!isset($name)) {
             exit('No name!');
         }
-        $getContactsAmo = (new \Sync\Kommo\GetContactsAmo());
-        $bigArrayOfContacts = $getContactsAmo->GetCont($name);
+        $getContactsAmo = new GetContactsAmo();
+        $bigArrayOfContacts = $getContactsAmo->getCont($name);
         $goodReturn = $getContactsAmo->makeArray($bigArrayOfContacts);
         return new JsonResponse(
             $goodReturn

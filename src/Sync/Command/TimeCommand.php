@@ -6,7 +6,6 @@ use Pheanstalk\Pheanstalk;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
 use Sync\Config\BeanstalkConfig;
-use Sync\Workers\TimeWorker;
 
 class TimeCommand extends \Symfony\Component\Console\Command\Command
 {
@@ -24,12 +23,17 @@ class TimeCommand extends \Symfony\Component\Console\Command\Command
      */
     protected Pheanstalk $connection;
 
+    /**
+     * @return void
+     */
     protected function configure(): void
     {
         $this->setDescription('how-time');
-
     }
 
+    /**
+     * @param BeanstalkConfig $beanstalk
+     */
     public function __construct(BeanstalkConfig $beanstalk)
     {
         parent::__construct();
@@ -37,6 +41,7 @@ class TimeCommand extends \Symfony\Component\Console\Command\Command
     }
 
     /**
+     * Отправляет сообщение в очередь
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
