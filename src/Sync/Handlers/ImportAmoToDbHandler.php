@@ -8,8 +8,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Sync\Core\Controllers\AccountController;
 
-use function PHPUnit\Framework\isJson;
-
 class ImportAmoToDbHandler implements RequestHandlerInterface
 {
 

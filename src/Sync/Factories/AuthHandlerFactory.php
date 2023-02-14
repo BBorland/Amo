@@ -13,11 +13,15 @@ use Sync\Handlers\AuthHandler;
 class AuthHandlerFactory
 {
     /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
+     * @param ContainerInterface $container
+     * @return RequestHandlerInterface
      */
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
-        return new AuthHandler($container->get('config')['database']);
+        try {
+            return new AuthHandler($container->get('config')['database']);
+        } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
+            exit($e->getMessage());
+        }
     }
 }

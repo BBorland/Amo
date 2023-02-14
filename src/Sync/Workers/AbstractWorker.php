@@ -48,10 +48,10 @@ abstract class AbstractWorker extends \Symfony\Component\Console\Command\Command
         ) {
             try {
                 $this->process($job->getData());
+                $this->connection->delete($job);
             } catch (Throwable $exception) {
                 $this->handleException($exception, $job);
             }
-            $this->connection->delete($job);
         }
     }
 

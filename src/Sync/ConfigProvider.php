@@ -13,6 +13,9 @@ use Sync\Factories\AuthHandlerFactory;
 
 class ConfigProvider
 {
+    /**
+     * @return array[]
+     */
     public function __invoke(): array
     {
         return [
@@ -20,6 +23,9 @@ class ConfigProvider
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getDependencies(): array
     {
         return [
@@ -36,6 +42,7 @@ class ConfigProvider
                 \Sync\Handlers\WebHookHandler::class => \Sync\Factories\WebHookHandlerFactory::class,
                 \Sync\Handlers\ContactsToDbHandler::class => \Sync\Factories\ContactsToDbHandlerFactory::class,
                 \Sync\Workers\TimeWorker::class => \Sync\Factories\TimeWorkerFactory::class,
+                \Sync\Workers\RefreshToken::class => \Sync\Factories\RefreshTokenFactory::class,
             ],
         ];
     }

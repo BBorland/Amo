@@ -4,6 +4,7 @@ namespace Sync\Core\Controllers;
 
 use Illuminate\Database\QueryException;
 use League\OAuth2\Client\Token\AccessToken;
+use PHPUnit\Exception;
 use Sync\Models\Account;
 
 class AccountController extends BaseController
@@ -14,7 +15,7 @@ class AccountController extends BaseController
      * @return void
      * @throws QueryException
      */
-    public function accountCreate(array $data): void // TODO: PHPDocs
+    public function accountCreate(array $data): void
     {
         Account::updateOrCreate([
             'account_name' => $data['account_name']
@@ -29,9 +30,13 @@ class AccountController extends BaseController
      * @param string $accountName
      * @return AccessToken
      */
-    public function accountGetToken(string $accountName): AccessToken // TODO: PHPDocs
+    public function accountGetToken(string $accountName): AccessToken
     {
-        $token = json_decode(Account::where('account_name', $accountName)->first()->token, true);
+        try {
+            $token = json_decode(Account::where('account_name', $accountName)->first()->token, true);
+        } catch (Exception $e) {
+            exit($e->getMessage());
+        }
         return new AccessToken(
             $token
         );
@@ -43,7 +48,7 @@ class AccountController extends BaseController
      * @return void
      * @throws QueryException
      */
-    public function uniTokenInsert(array $data): void // TODO: PHPDocs
+    public function uniTokenInsert(array $data): void
     {
         Account::updateOrCreate([
             'account_name' => $data['Uname']
@@ -72,5 +77,35 @@ class AccountController extends BaseController
     public function accountGetEnum(string $accountId): string
     {
         return Account::where('account_id', $accountId)->first()->enum;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllAccounts(): array
+    {
+        return Account::all()->toArray();
+    }
+
+    /**
+     * @param string $token
+     * @return void
+     */
+    public function accountUpdate(string $token): void
+    {
+        $users = Account::all();
+        foreach ($users as $user) {
+            $user->token = $token;
+            $user->save();
+        }
+    }
+
+    /**
+     * @param string $name
+     * @return array
+     */
+    public function getOneAccount(string $name)
+    {
+        return Account::query()->where('account_name', $name)->first()->toArray();
     }
 }

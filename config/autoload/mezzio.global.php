@@ -25,6 +25,8 @@ return [
         'commands' => [
             'how-time' => Sync\Command\TimeCommand::class,
             'async-worker' => Sync\Workers\TimeWorker::class,
+            'token-update' => Sync\Command\TokenUpdate::class,
+            'refresh-token' => Sync\Workers\RefreshToken::class,
         ],
     ],
 ];
