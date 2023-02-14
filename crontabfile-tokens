@@ -1,1 +1,1 @@
-* * * * * /var/www/application/vendor/bin/laminas token-update -t 24
+0 22 * * * /var/www/application/vendor/bin/laminas token-update -t 24

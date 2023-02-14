@@ -38,7 +38,6 @@ class RefreshToken extends AbstractWorker
     public function process($data): void
     {
         $array = json_decode($data, true);
-        (new AccountController())->accountUpdate($array[0], $array['token']);
-        echo 'успех ' . $array[0] . PHP_EOL;
+        (new AccountController())->accountUpdate($array['token']);
     }
 }

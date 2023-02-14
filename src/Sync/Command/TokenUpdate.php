@@ -68,6 +68,7 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $flagForFirstAccount = true;
         $arrayAllAccounts = (new AccountController())->getAllAccounts();
         $timeToUpdate = $input->getOption('time');
         if (preg_match('/^[\d]+$/', $timeToUpdate) != 0) {
@@ -75,26 +76,40 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
         } else {
             exit('Ошибка ввода' . PHP_EOL);
         }
-        foreach ($arrayAllAccounts as $account) {
-            $token = (new AccountController())->accountGetToken($account['account_name']);
-            $expires = Carbon::createFromTimestamp((json_decode($account['token'], true))['expires']);
-            if (Carbon::now()->diffInHours($expires) < $timeToUpdate) {
-                $accessToken = $this->apiClient
-                    ->getOAuthClient()
-                    ->setBaseDomain((json_decode($account['token'], true))['base_domain'])
-                    ->getAccessTokenByRefreshToken($token);
-                $this->apiClient->setAccessToken($accessToken)
-                    ->setAccountBaseDomain((json_decode($account['token'], true))['base_domain']);
-                $array = [
-                    'access_token' => $accessToken->getToken(),
-                    'refresh_token' => $accessToken->getRefreshToken(),
-                    'expires' => $accessToken->getExpires(),
-                    'base_domain' => $this->apiClient->getAccountBaseDomain(),
-                ];
-                $job = Pheanstalk::create('application-beanstalkd', 11300)
-                    ->useTube('refresh')
-                    ->put(json_encode([$account['account_name'], 'token' => json_encode($array)]), JSON_PRETTY_PRINT);
+        foreach ($arrayAllAccounts as $account1) {
+            $expires = Carbon::createFromTimestamp((json_decode($account1['token'], true))['expires']);
+            $diff = Carbon::now()->diffInSeconds($expires);
+            if ($diff < $timeToUpdate * 3600) {
+                if ($flagForFirstAccount) {
+                    $minTimeToExpire = $diff;
+                    $arrayOfTimeToUpdate[] = [$account1['account_name'] => $diff];
+                    $flagForFirstAccount = false;
+                }
+                if ($diff < $minTimeToExpire) {
+                    $arrayOfTimeToUpdate = [];
+                    $arrayOfTimeToUpdate[] = [$account1['account_name'] => $diff];
+                }
             }
+        }
+        if (!empty($arrayOfTimeToUpdate)) {
+            $name = array_keys($arrayOfTimeToUpdate[0])[0];
+            $account = (new AccountController())->getOneAccount($name);
+            $token = (new AccountController())->accountGetToken($name);
+            $accessToken = $this->apiClient
+                ->getOAuthClient()
+                ->setBaseDomain((json_decode($account['token'], true))['base_domain'])
+                ->getAccessTokenByRefreshToken($token);
+            $this->apiClient->setAccessToken($accessToken)
+                ->setAccountBaseDomain((json_decode($account['token'], true))['base_domain']);
+            $array = [
+                'access_token' => $accessToken->getToken(),
+                'refresh_token' => $accessToken->getRefreshToken(),
+                'expires' => $accessToken->getExpires(),
+                'base_domain' => $this->apiClient->getAccountBaseDomain(),
+            ];
+            $job = Pheanstalk::create('application-beanstalkd', 11300)
+                ->useTube('refresh')
+                ->put(json_encode([$account['account_name'], 'token' => json_encode($array)]), JSON_PRETTY_PRINT);
         }
         return 0;
     }

@@ -79,16 +79,33 @@ class AccountController extends BaseController
         return Account::where('account_id', $accountId)->first()->enum;
     }
 
-    public function getAllAccounts():array
+    /**
+     * @return array
+     */
+    public function getAllAccounts(): array
     {
-       return Account::all()->toArray();
+        return Account::all()->toArray();
     }
 
-    public function accountUpdate(string $name, string $token):void
+    /**
+     * @param string $token
+     * @return void
+     */
+    public function accountUpdate(string $token): void
     {
-        Account::query()->where('account_name', $name)->update([
-            'account_name' => $name,
-            'token' => $token
-        ]);
+        $users = Account::all();
+        foreach ($users as $user) {
+            $user->token = $token;
+            $user->save();
+        }
+    }
+
+    /**
+     * @param string $name
+     * @return array
+     */
+    public function getOneAccount(string $name)
+    {
+        return Account::query()->where('account_name', $name)->first()->toArray();
     }
 }
