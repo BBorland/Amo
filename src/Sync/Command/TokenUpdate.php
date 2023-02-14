@@ -11,6 +11,7 @@ use \Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use \Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Dotenv\Dotenv;
+use Sync\Config\BeanstalkConfig;
 use Sync\Core\Controllers\AccountController;
 
 class TokenUpdate extends \Symfony\Component\Console\Command\Command
@@ -31,9 +32,14 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
     protected AccessToken $accessToken;
 
     /**
+     * @var Pheanstalk
+     */
+    protected Pheanstalk $connection;
+
+    /**
      *
      */
-    public function __construct()
+    public function __construct(BeanstalkConfig $beanstalk)
     {
         parent::__construct();
         $dotenv = new Dotenv();
@@ -43,6 +49,7 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
             $integrationSecretKey = $_ENV['integrationSecretKey'],
             $integrationRedirectUri = $_ENV['integrationRedirectUri'],
         );
+        $this->connection = $beanstalk->getConnection();
     }
 
     /**
@@ -71,7 +78,7 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
         $flagForFirstAccount = true;
         $arrayAllAccounts = (new AccountController())->getAllAccounts();
         $timeToUpdate = $input->getOption('time');
-        if (preg_match('/^[\d]+$/', $timeToUpdate) != 0) { // TODO: используй '/^\d+$/'
+        if (preg_match('/^\d+$/', $timeToUpdate) != 0) {
             $timeToUpdate = (int)$timeToUpdate;
         } else {
             exit('Ошибка ввода' . PHP_EOL);
@@ -107,8 +114,7 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
                 'expires' => $accessToken->getExpires(),
                 'base_domain' => $this->apiClient->getAccountBaseDomain(),
             ];
-            // TODO: должна использоваться модель конфигурации
-            $job = Pheanstalk::create('application-beanstalkd', 11300)
+            $job = $this->connection
                 ->useTube('refresh')
                 ->put(json_encode([$account['account_name'], 'token' => json_encode($array)]), JSON_PRETTY_PRINT);
         }

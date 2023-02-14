@@ -104,7 +104,7 @@ class AccountController extends BaseController
      * @param string $name
      * @return array
      */
-    public function getOneAccount(string $name) // TODO: type-hint
+    public function getOneAccount(string $name):array
     {
         return Account::query()->where('account_name', $name)->first()->toArray();
     }

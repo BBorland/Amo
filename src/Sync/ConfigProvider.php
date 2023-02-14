@@ -43,6 +43,8 @@ class ConfigProvider
                 \Sync\Handlers\ContactsToDbHandler::class => \Sync\Factories\ContactsToDbHandlerFactory::class,
                 \Sync\Workers\TimeWorker::class => \Sync\Factories\TimeWorkerFactory::class,
                 \Sync\Workers\RefreshToken::class => \Sync\Factories\RefreshTokenFactory::class,
+                \Sync\Command\TimeCommand::class => \Sync\Factories\TimeCommandFactory::class,
+                \Sync\Command\TokenUpdate::class => \Sync\Factories\TokenUpdateFactory::class,
             ],
         ];
     }
