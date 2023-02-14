@@ -62,6 +62,7 @@
         "mezzio/mezzio-fastroute": "^3.0.3",
         "mezzio/mezzio-helpers": "^5.7",
         "mezzio/mezzio-platesrenderer": "^2.2",
+        "nesbot/carbon": "^2.66",
         "pda/pheanstalk": "^4.0",
         "pimple/pimple": "^3.0",
         "squizlabs/php_codesniffer": "^3.7.1",

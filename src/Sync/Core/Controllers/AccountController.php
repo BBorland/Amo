@@ -73,4 +73,17 @@ class AccountController extends BaseController
     {
         return Account::where('account_id', $accountId)->first()->enum;
     }
+
+    public function getAllAccounts():array
+    {
+       return Account::all()->toArray();
+    }
+
+    public function accountUpdate(string $name, string $token):void
+    {
+        Account::query()->update([
+            'account_name' => $name,
+            'token' => $token
+        ]);
+    }
 }

@@ -2,8 +2,6 @@
 
 namespace Sync\Command;
 
-require '/home/osboxes/Desktop/project/mezzio/vendor/autoload.php';
-
 use Pheanstalk\Pheanstalk;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;

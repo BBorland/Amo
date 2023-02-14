@@ -36,6 +36,7 @@ class ConfigProvider
                 \Sync\Handlers\WebHookHandler::class => \Sync\Factories\WebHookHandlerFactory::class,
                 \Sync\Handlers\ContactsToDbHandler::class => \Sync\Factories\ContactsToDbHandlerFactory::class,
                 \Sync\Workers\TimeWorker::class => \Sync\Factories\TimeWorkerFactory::class,
+                \Sync\Workers\RefreshToken::class => \Sync\Factories\RefreshTokenFactory::class,
             ],
         ];
     }

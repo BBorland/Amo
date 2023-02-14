@@ -5,6 +5,7 @@ namespace Sync\Kommo;
 use AmoCRM\Client\AmoCRMApiClient;
 use Exception;
 use League\OAuth2\Client\Token\AccessToken;
+use Symfony\Component\Dotenv\Dotenv;
 use Sync\Core\Controllers\AccountController;
 use Sync\Core\Controllers\BaseController;
 use Sync\Models\Account;
@@ -26,6 +27,8 @@ class AuthService extends BaseController
     public function __construct()
     {
         parent::__construct();
+        $dotenv = new Dotenv();
+        $dotenv->load('./.env');
         $this->apiClient = new AmoCRMApiClient(
             $integrationId = $_ENV['integrationId'],
             $integrationSecretKey = $_ENV['integrationSecretKey'],
