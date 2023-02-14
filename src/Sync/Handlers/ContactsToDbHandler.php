@@ -6,7 +6,6 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Sync\Core\Controllers\AccountContactController;
 use Sync\Core\Controllers\AccountController;
 use Sync\Core\Controllers\ContactController;
 
