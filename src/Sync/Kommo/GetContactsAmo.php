@@ -6,6 +6,7 @@ use AmoCRM\Exceptions\AmoCRMApiException;
 use AmoCRM\Exceptions\AmoCRMApiNoContentException;
 use AmoCRM\Exceptions\AmoCRMMissedTokenException;
 use AmoCRM\Exceptions\AmoCRMoAuthApiException;
+use AmoCRM\OAuth2\Client\Provider\AmoCRMException;
 use League\OAuth2\Client\Token\AccessToken;
 use Sync\Core\Controllers\AccountController;
 use Sync\Models\Account;
@@ -80,8 +81,12 @@ class GetContactsAmo extends AuthService
             (new AuthService())->auth();
         }
         $accessToken = $this->readToken($name);
-        $this->apiClient->setAccessToken($accessToken)
-            ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
+        try {
+            $this->apiClient->setAccessToken($accessToken)
+                ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
+        } catch (AmoCRMException $e) {
+            exit($e->getMessage());
+        }
         return $accessToken;
     }
 }
