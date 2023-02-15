@@ -2,9 +2,7 @@
 
 namespace Sync\Command;
 
-use AmoCRM\Client\AmoCRMApiClient;
 use AmoCRM\Exceptions\AmoCRMoAuthApiException;
-use Carbon\Carbon;
 use League\OAuth2\Client\Token\AccessToken;
 use Pheanstalk\Pheanstalk;
 use \Symfony\Component\Console\Input\InputInterface;
@@ -12,10 +10,9 @@ use Symfony\Component\Console\Input\InputOption;
 use \Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Dotenv\Dotenv;
 use Sync\Config\BeanstalkConfig;
-use Sync\Core\Controllers\AccountController;
-use Sync\Kommo\AuthService;
 use Sync\Kommo\FindTheSmallestTimeToUpdate;
 use Sync\Kommo\PreparingTokenToJob;
+use Sync\Kommo\ApiClient;
 
 class TokenUpdate extends \Symfony\Component\Console\Command\Command
 {
@@ -69,72 +66,26 @@ class TokenUpdate extends \Symfony\Component\Console\Command\Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        switch (AuthService::TOKENS_FILE) {
-            case './tokens.json':
-                $arrayAllAccounts = json_decode(file_get_contents('./tokens.json'), true);
-                var_dump($arrayAllAccounts);
-                $timeToUpdate = $input->getOption('time');
-                $arrayOfTimeToUpdate = (new FindTheSmallestTimeToUpdate())
-                    ->findTheSmallestTimeToUpdate($arrayAllAccounts, $timeToUpdate, true);
-                if (!empty($arrayOfTimeToUpdate)) {
-                    $name = key($arrayOfTimeToUpdate[0]);
-                    $account = $arrayAllAccounts[$name];
-                    $token = (new AuthService())->readToken($name);
-                    $array = (new PreparingTokenToJob())
-                        ->preparingTokenToJob($account, $token);
-                    $job = $this->connection
-                        ->useTube('refresh')
-                        ->put(json_encode([
-                            'name' => $name,
-                            'token' => json_encode($array),
-                            'names' => array_keys($arrayAllAccounts)
-                        ]), JSON_PRETTY_PRINT);
-                }
-                break;
-            case null:
-                $flagForFirstAccount = true;
-                $arrayAllAccounts = (new AccountController())->getAllAccounts();
-                $timeToUpdate = $input->getOption('time');
-                if (preg_match('/^\d+$/', $timeToUpdate) != 0) {
-                    $timeToUpdate = (int)$timeToUpdate;
-                } else {
-                    exit('Ошибка ввода' . PHP_EOL);
-                }
-                foreach ($arrayAllAccounts as $account1) {
-                    $expires = Carbon::createFromTimestamp((json_decode($account1['token'], true))['expires']);
-                    $diff = Carbon::now()->diffInSeconds($expires);
-                    if ($diff < $timeToUpdate * 3600) {
-                        if ($flagForFirstAccount) {
-                            $minTimeToExpire = $diff;
-                            $arrayOfTimeToUpdate[] = [$account1['account_name'] => $diff];
-                            $flagForFirstAccount = false;
-                        }
-                        if ($diff < $minTimeToExpire) {
-                            $arrayOfTimeToUpdate = [];
-                            $arrayOfTimeToUpdate[] = [$account1['account_name'] => $diff];
-                        }
-                    }
-                }
-                if (!empty($arrayOfTimeToUpdate)) {
-                    $name = array_keys($arrayOfTimeToUpdate[0])[0];
-                    $account = (new AccountController())->getOneAccount($name);
-                    $token = (new AccountController())->accountGetToken($name);
-                    $accessToken = $this->apiClient
-                        ->getOAuthClient()
-                        ->setBaseDomain((json_decode($account['token'], true))['base_domain'])
-                        ->getAccessTokenByRefreshToken($token);
-                    $this->apiClient->setAccessToken($accessToken)
-                        ->setAccountBaseDomain((json_decode($account['token'], true))['base_domain']);
-                    $array = [
-                        'access_token' => $accessToken->getToken(),
-                        'refresh_token' => $accessToken->getRefreshToken(),
-                        'expires' => $accessToken->getExpires(),
-                        'base_domain' => $this->apiClient->getAccountBaseDomain(),
-                    ];
-                    $job = $this->connection
-                        ->useTube('refresh')
-                        ->put(json_encode([$account['account_name'], 'token' => json_encode($array)]), JSON_PRETTY_PRINT);
-                }
+        $arrayAllAccounts = (new ApiClient())->authService->getAll();
+        $timeToUpdate = $input->getOption('time');
+        $arrayOfTimeToUpdate = (new FindTheSmallestTimeToUpdate())
+            ->findTheSmallestTimeToUpdate($arrayAllAccounts, $timeToUpdate, true);
+        if (!empty($arrayOfTimeToUpdate)) {
+            $name = key($arrayOfTimeToUpdate[0]);
+            $account = $arrayAllAccounts[$name];
+            $token = (new ApiClient())->authService->getAuth($name);
+            $array = (new PreparingTokenToJob())
+                ->preparingTokenToJob($account, $token);
+            $job = $this->connection
+                ->useTube('refresh')
+                ->put(
+                    json_encode([
+                        'name' => $name,
+                        'token' => json_encode($array),
+                        'names' => array_keys($arrayAllAccounts)
+                    ]),
+                    JSON_PRETTY_PRINT
+                );
         }
         return 0;
     }

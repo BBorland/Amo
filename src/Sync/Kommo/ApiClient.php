@@ -4,26 +4,22 @@ namespace Sync\Kommo;
 
 use AmoCRM\Client\AmoCRMApiClient;
 use Exception;
-use League\OAuth2\Client\Token\AccessToken;
 use Symfony\Component\Dotenv\Dotenv;
-use Sync\Core\Controllers\AccountController;
+use Sync\Contracts\AuthContract;
 use Sync\Core\Controllers\BaseController;
-use Sync\Models\Account;
+use Sync\Services\LocalTokenService;
 
-class AuthService extends BaseController
+class ApiClient extends BaseController
 {
+    /** @var AuthContract Сервис работы с токеном авторизации. */
+    public AuthContract $authService;
+
     /** @var string Базовый домен авторизации. */
     private const TARGET_DOMAIN = 'kommo.com';
-
-    /** @var string Файл хранения токенов. */
-    public const TOKENS_FILE = './tokens.json';
 
     /** @var AmoCRMApiClient AmoCRM клиент. */
     protected AmoCRMApiClient $apiClient;
 
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -34,10 +30,17 @@ class AuthService extends BaseController
             $integrationSecretKey = $_ENV['integrationSecretKey'],
             $integrationRedirectUri = $_ENV['integrationRedirectUri'],
         );
+
+        /** Если требуется сохранять токен локально. */
+        $this->authService = new LocalTokenService();
+
+        /** Если требуется сохранять токен в БД. */
+//         $this->authService = new DatabaseTokenService();
     }
 
     /**
      * Авторизация.
+     *
      * @return string
      */
     public function auth(): string
@@ -85,7 +88,8 @@ class AuthService extends BaseController
                     header('Location: ' . $authorizationUrl);
                 }
                 die;
-            } elseif (empty($_GET['state']) ||
+            } elseif (
+                empty($_GET['state']) ||
                 empty($_SESSION['oauth2state']) ||
                 ($_GET['state'] !== $_SESSION['oauth2state'])
             ) {
@@ -102,8 +106,9 @@ class AuthService extends BaseController
                 ->getOAuthClient()
                 ->setBaseDomain($_GET['referer'])
                 ->getAccessTokenByCode($_GET['code']);
+
             if (!$accessToken->hasExpired()) {
-                $this->saveToken([
+                $this->authService->saveAuth([
                     'access_token' => $accessToken->getToken(),
                     'refresh_token' => $accessToken->getRefreshToken(),
                     'expires' => $accessToken->getExpires(),
@@ -115,48 +120,5 @@ class AuthService extends BaseController
         }
 
         return $_SESSION['name'];
-    }
-
-    /**
-     * Сохранение токена авторизации по имени аккаунта.
-     *
-     * @param array $token
-     * @return void
-     */
-    private function saveToken(array $token): void
-    {
-        if (self::TOKENS_FILE !== null) {
-            $tokens = file_exists(self::TOKENS_FILE)
-                ? json_decode(file_get_contents(self::TOKENS_FILE), true)
-                : [];
-            $tokens[$_SESSION['name']] = $token;
-            //exit(var_dump($tokens));
-            file_put_contents(self::TOKENS_FILE, json_encode($tokens, JSON_PRETTY_PRINT));
-        } else {
-            Account::updateOrCreate([
-                'account_name' => $_SESSION['name']
-            ],
-                [
-                    'token' => json_encode($token, JSON_PRETTY_PRINT)
-                ]);
-        }
-    }
-
-    /**
-     * Получение токена из файла по имени.
-     *
-     * @param string $accountName
-     * @return AccessToken
-     */
-    public function readToken(string $accountName): AccessToken
-    {
-        if (self::TOKENS_FILE !== null) {
-            return new AccessToken(
-                json_decode(file_get_contents(self::TOKENS_FILE), true)[$accountName]
-            );
-        }
-        return new AccessToken(
-            (new AccountController())->accountGetToken($accountName)->jsonSerialize()
-        );
     }
 }

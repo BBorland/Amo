@@ -3,6 +3,7 @@
 namespace Sync\Kommo;
 
 use AmoCRM\Client\AmoCRMApiClient;
+use AmoCRM\Exceptions\AmoCRMoAuthApiException;
 use League\OAuth2\Client\Token\AccessToken;
 
 class PreparingTokenToJob
@@ -29,7 +30,7 @@ class PreparingTokenToJob
      * @param array $account
      * @param AccessToken $token
      * @return array
-     * @throws \AmoCRM\Exceptions\AmoCRMoAuthApiException
+     * @throws AmoCRMoAuthApiException
      */
     public function preparingTokenToJob(array $account, AccessToken $token)
     {
