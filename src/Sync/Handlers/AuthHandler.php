@@ -35,21 +35,40 @@ class AuthHandler extends AuthService implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $a = $request->getQueryParams()['name'];
-        if (//!isset(json_decode(file_get_contents('./tokens.json'), true)[$a]) //or
-        !(Account::where('account_name', $a)->exists())) {
-            $name = (new AuthService())->auth();
-            $accessToken = $this->readToken($name);
-            $this->apiClient->setAccessToken($accessToken)
-                ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
-            (new AddWebHook())->AddWebHook($this->apiClient);
-            return new JsonResponse([
-                ['name' => $name]
-            ]);
+        switch (AuthService::TOKENS_FILE) {
+            case './tokens.json':
+                if (!isset(json_decode(file_get_contents('./tokens.json'), true)[$a])) {
+                    $name = (new AuthService())->auth();
+                    $accessToken = $this->readToken($name);
+                    $this->apiClient->setAccessToken($accessToken)
+                        ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
+                    (new AddWebHook())->AddWebHook($this->apiClient);
+                    return new JsonResponse([
+                        ['name' => $name]
+                    ]);
+                }
+                $accessToken = $this->readToken($a);
+                $this->apiClient->setAccessToken($accessToken)
+                    ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
+                (new AddWebHook())->AddWebHook($this->apiClient);
+                break;
+            case null:
+                if (!(Account::where('account_name', $a)->exists())) {
+                    $name = (new AuthService())->auth();
+                    $accessToken = $this->readToken($name);
+                    $this->apiClient->setAccessToken($accessToken)
+                        ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
+                    (new AddWebHook())->AddWebHook($this->apiClient);
+                    return new JsonResponse([
+                        ['name' => $name]
+                    ]);
+                }
+                $accessToken = $this->readToken($a);
+                $this->apiClient->setAccessToken($accessToken)
+                    ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
+                (new AddWebHook())->AddWebHook($this->apiClient);
+                break;
         }
-        $accessToken = $this->readToken($a);
-        $this->apiClient->setAccessToken($accessToken)
-            ->setAccountBaseDomain($accessToken->getValues()['base_domain']);
-        (new AddWebHook())->AddWebHook($this->apiClient);
         return new JsonResponse([
             ['name' => $a]
         ]);

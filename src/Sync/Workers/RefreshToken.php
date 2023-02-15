@@ -39,6 +39,16 @@ class RefreshToken extends AbstractWorker
     public function process($data): void
     {
         $array = json_decode($data, true);
-        (new AccountController())->accountUpdate($array['token']);
+        if (AuthService::TOKENS_FILE == null) {
+            (new AccountController())->accountUpdate($array['token']);
+        } else {
+            file_put_contents('./tokens.json', '');
+            $tokens = [];
+            foreach ($array['names'] as $name) {
+                $tokens[$name] = json_decode($array['token'], true);
+            }
+            var_dump($tokens);
+            file_put_contents('./tokens.json', json_encode($tokens, JSON_PRETTY_PRINT));
+        }
     }
 }

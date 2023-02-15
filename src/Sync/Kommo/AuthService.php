@@ -15,8 +15,8 @@ class AuthService extends BaseController
     /** @var string Базовый домен авторизации. */
     private const TARGET_DOMAIN = 'kommo.com';
 
-    ///** @var string Файл хранения токенов. */
-    //private const TOKENS_FILE = './tokens.json';
+    /** @var string Файл хранения токенов. */
+    public const TOKENS_FILE = './tokens.json';
 
     /** @var AmoCRMApiClient AmoCRM клиент. */
     protected AmoCRMApiClient $apiClient;
@@ -125,18 +125,21 @@ class AuthService extends BaseController
      */
     private function saveToken(array $token): void
     {
-        //$tokens = (Account::where('account_name', $_SESSION['name'])->exists())
-        //    ? (new AccountController())->accountGetToken($_SESSION['name'])
-        //    : [];
-        //$tokens = file_exists(self::TOKENS_FILE)
-        //    ? json_decode(file_get_contents(self::TOKENS_FILE), true)
-        //    : [];
-        //$tokens[$_SESSION['name']] = $token;
-        Account::updateOrCreate([
-            'account_name' => $_SESSION['name']],
-            ['token' => json_encode($token, JSON_PRETTY_PRINT)
-            ]);
-        //file_put_contents(self::TOKENS_FILE, json_encode($tokens, JSON_PRETTY_PRINT));
+        if (self::TOKENS_FILE !== null) {
+            $tokens = file_exists(self::TOKENS_FILE)
+                ? json_decode(file_get_contents(self::TOKENS_FILE), true)
+                : [];
+            $tokens[$_SESSION['name']] = $token;
+            //exit(var_dump($tokens));
+            file_put_contents(self::TOKENS_FILE, json_encode($tokens, JSON_PRETTY_PRINT));
+        } else {
+            Account::updateOrCreate([
+                'account_name' => $_SESSION['name']
+            ],
+                [
+                    'token' => json_encode($token, JSON_PRETTY_PRINT)
+                ]);
+        }
     }
 
     /**
@@ -147,8 +150,12 @@ class AuthService extends BaseController
      */
     public function readToken(string $accountName): AccessToken
     {
+        if (self::TOKENS_FILE !== null) {
+            return new AccessToken(
+                json_decode(file_get_contents(self::TOKENS_FILE), true)[$accountName]
+            );
+        }
         return new AccessToken(
-        //json_decode(file_get_contents(self::TOKENS_FILE), true)[$accountName]
             (new AccountController())->accountGetToken($accountName)->jsonSerialize()
         );
     }
